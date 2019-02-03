@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         pStage = primaryStage;
         pStage.setTitle("Quiz Retakes");
-        switchScene("/layouts/login.fxml", getClass());
+        switchScene("/layouts/login.fxml", getClass(), 300, 300);
     }
 
     public static Stage getStage(){
@@ -27,9 +27,9 @@ public class Main extends Application {
         launch(args);
     }
 
-    public static void switchScene(String resourcePath, Class<?> context) throws IOException {
+    public static void switchScene(String resourcePath, Class<?> context, int width, int height) throws IOException {
         Parent root = FXMLLoader.load(context.getResource(resourcePath));
-        Scene scene = new Scene(root, 300, 275);
+        Scene scene = new Scene(root, width, height);
         scene.getStylesheets().add(context.getResource("/bootstrap3.css").toExternalForm());
         pStage.setScene(scene);
         pStage.show();
