@@ -6,20 +6,32 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
+
+    private static Stage pStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/layouts/login.fxml"));
-        primaryStage.setTitle("Hello World");
-        Scene scene = new Scene(root, 300, 275);
-        scene.getStylesheets().add(getClass().getResource("/bootstrap3.css").toExternalForm());
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        pStage = primaryStage;
+        pStage.setTitle("Quiz Retakes");
+        switchScene("/layouts/login.fxml", getClass());
     }
 
+    public static Stage getStage(){
+        return pStage;
+    }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static void switchScene(String resourcePath, Class<?> context) throws IOException {
+        Parent root = FXMLLoader.load(context.getResource(resourcePath));
+        Scene scene = new Scene(root, 300, 275);
+        scene.getStylesheets().add(context.getResource("/bootstrap3.css").toExternalForm());
+        pStage.setScene(scene);
+        pStage.show();
     }
 }
