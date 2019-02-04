@@ -173,8 +173,6 @@ public class ScheduleController {
                         } else {
                             selectedQuizzes.remove(param);
                         }
-
-                        System.out.println(selectedQuizzes);
                     });
                     return observable;
                 })
