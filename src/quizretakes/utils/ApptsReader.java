@@ -12,9 +12,8 @@ import java.util.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.IOException;
 
-public class apptsReader
+public class ApptsReader
 {
 
 static private final String separator = ",";
@@ -23,8 +22,8 @@ public ArrayList read (String filename) throws IOException
 {
 
    // read appointments file
-   ArrayList<apptBean> appts = new ArrayList<apptBean>();
-   apptBean a;
+   ArrayList<ApptBean> appts = new ArrayList<ApptBean>();
+   ApptBean a;
    File file = new File(filename);
    if (!file.exists())
    {
@@ -39,7 +38,7 @@ public ArrayList read (String filename) throws IOException
       while ((line = bw.readLine()) != null)
       {
          String[] s = line.split(separator);
-         a = new apptBean (Integer.parseInt(s[0]), Integer.parseInt(s[1]), s[2]);
+         a = new ApptBean(Integer.parseInt(s[0]), Integer.parseInt(s[1]), s[2]);
          appts.add(a);
       }
       bw.close();

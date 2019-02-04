@@ -16,6 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         pStage = primaryStage;
         pStage.setTitle("Quiz Retakes");
+
         switchScene("/layouts/login.fxml", getClass(), 300, 300);
     }
 
@@ -31,6 +32,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(context.getResource(resourcePath));
         Scene scene = new Scene(root, width, height);
         scene.getStylesheets().add(context.getResource("/bootstrap3.css").toExternalForm());
+
         pStage.setScene(scene);
         pStage.show();
     }

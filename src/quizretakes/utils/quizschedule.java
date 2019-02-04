@@ -40,7 +40,7 @@
   *                    Used by quizschedule.java
   *    retakeBean.java -- A simple retake bean
   *                      Used by retakes.java and readRetakesXML.java
-  *    apptBean.java -- A bean to hold appointments
+  *    ApptBean.java -- A bean to hold appointments
 
   *    quizzes.xml -- Data file of when quizzes were given
   *    retakes.xml -- Data file of when retakes are given
