@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  *
  */
 
-public class servletUtils
+public class ServletUtils
 {
 
 /**
@@ -93,4 +93,4 @@ out.print (message);
    out.println ("  <button id='submitRequest' type='submit' style='font-size:large'>Submit</button>");
    out.println ("</form>");
 }
-} // end servletUtils class
+} // end ServletUtils class

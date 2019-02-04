@@ -8,7 +8,7 @@ import java.time.*;
  * @author Jeff Offutt
  */
 /* *****************************************
-<retakes>
+<Retakes>
   <retake>
     <id>1</id> <!-- Should be unique and in order -->
     <location>Inn 204</location> --String, building & room
@@ -22,17 +22,17 @@ import java.time.*;
   <retake>
     <id>2</id>
 ...
-</retakes>
+</Retakes>
 ***************************************** */
 
-public class retakeBean implements Comparable<retakeBean>
+public class RetakeBean implements Comparable<RetakeBean>
 {
    private int retakeID;
    private String location;
    private LocalDate whenOffered;
    private LocalTime timeOffered;
 
-   public retakeBean (int ID, String location, int month, int day, int hour, int minute)
+   public RetakeBean(int ID, String location, int month, int day, int hour, int minute)
    {
       retakeID      = ID;
       this.location = location;
@@ -42,7 +42,7 @@ public class retakeBean implements Comparable<retakeBean>
    }
 
    @Override
-   public int compareTo (retakeBean quizR)
+   public int compareTo (RetakeBean quizR)
    {
       return this.retakeID - quizR.retakeID;
    }

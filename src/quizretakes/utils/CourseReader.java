@@ -23,16 +23,14 @@ import org.xml.sax.SAXException;
 
 // These classes read the sample XML file and manage output:
 import java.io.File;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 
-public class courseReader
+public class CourseReader
 {
 
-public courseBean read (String filename)
+public CourseBean read (String filename)
        throws IOException, ParserConfigurationException, SAXException
 {
-   courseBean course = null;
+   CourseBean course = null;
 
 System.out.println("In course Reader, fileName: " +filename);
    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -74,7 +72,7 @@ System.out.println("course Reader, courseID: " + courseID);
          LocalDate startSkip = LocalDate.of(year, startSkipMonth, startSkipDay);
          LocalDate endSkip   = LocalDate.of(year, endSkipMonth, endSkipDay);
 
-         course = new courseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
+         course = new CourseBean(courseID, courseTitle, retakeDuration, startSkip, endSkip, dataLocation);
 
       } // end if
    } // end for

@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<HBox fx:controller="quizretakes.controllers.LoginController" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quizretakes.controllers.LoginController">
    <children>
       <VBox alignment="CENTER">
          <children>
@@ -23,7 +22,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="button_login_submit" mnemonicParsing="false" onAction="#onButtonLoginSubmit" text="Submit">
+                  <Button mnemonicParsing="false" onAction="#onButtonLoginSubmit" text="Submit">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
@@ -33,6 +32,7 @@
                   </Button>
                </children>
             </HBox>
+            <Text fx:id="textError" fill="#a80000" strokeType="OUTSIDE" strokeWidth="0.0" text="Error" visible="false" />
          </children>
       </VBox>
    </children>

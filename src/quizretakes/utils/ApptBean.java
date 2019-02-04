@@ -8,14 +8,14 @@ import java.time.*;
  * @author Jeff Offutt
  */
 
-public class apptBean
+public class ApptBean
 {
    private int quizID;
    private int retakeID;
    private String name;
 
    // *** Constructor *** //
-   public apptBean (int retakeID, int quizID, String name)
+   public ApptBean(int retakeID, int quizID, String name)
    {
       this.retakeID = retakeID;
       this.quizID   = quizID;
