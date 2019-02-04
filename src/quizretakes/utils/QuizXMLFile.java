@@ -26,7 +26,7 @@ public class QuizXMLFile {
         return apptsBase +
                 '-' +
                 courseID +
-                ".xml";
+                ".txt";
     }
 
     public static String getCourseFilename(String courseID) {

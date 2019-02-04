@@ -20,7 +20,7 @@
       <ToolBar prefHeight="40.0">
          <items>
             <Button mnemonicParsing="false" onAction="#onClickButtonBack" text="Cancel" />
-            <Button mnemonicParsing="false" onAction="#onClickButtonRefresh" text="Refresh" />
+            <Button mnemonicParsing="false" onAction="#onClickButtonRefresh" text="Reload" />
          </items>
       </ToolBar>
       <VBox alignment="TOP_CENTER">
@@ -34,6 +34,11 @@
                </VBox.margin>
                <font>
                   <Font size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="textSuccess" fill="#0f6f01" strokeType="OUTSIDE" strokeWidth="0.0" text="Successfully created appointment" visible="false">
+               <font>
+                  <Font size="18.0" />
                </font>
             </Text>
             <VBox>
@@ -130,7 +135,7 @@
                <children>
                   <Text fx:id="textError" fill="#a80000" strokeType="OUTSIDE" strokeWidth="0.0" text="Error" visible="false">
                      <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets />
                      </VBox.margin>
                   </Text>
                   <Button mnemonicParsing="false" onAction="#onClickButtonSubmitRequest" text="Submit Request" />
