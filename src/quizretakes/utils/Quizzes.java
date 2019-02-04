@@ -4,31 +4,31 @@ package quizretakes.utils;
 import java.util.*;
 
 /**
- * This class holds a collection of quizzes
+ * This class holds a collection of Quizzes
 
  * @author Jeff Offutt
  */
 
-public class quizzes implements Iterable<quizBean>
+public class Quizzes implements Iterable<QuizBean>
 {
-   private ArrayList<quizBean> quizzes;
+   private ArrayList<QuizBean> quizzes;
 
    // ***** Constructors //
-   public quizzes ()
+   public Quizzes()
    {
-      quizzes = new ArrayList<quizBean>();
+      quizzes = new ArrayList<QuizBean>();
    }
 
-   public quizzes (int quizID, int month, int day, int hour, int minute)
+   public Quizzes(int quizID, int month, int day, int hour, int minute)
    {  // Adds one quiz to a new list
-      quizzes = new ArrayList<quizBean>();
-      quizBean qb = new quizBean (quizID, month, day, hour, minute);
+      quizzes = new ArrayList<QuizBean>();
+      QuizBean qb = new QuizBean(quizID, month, day, hour, minute);
       quizzes.add (qb);
    }
 
-   public quizzes (quizBean qb)
+   public Quizzes(QuizBean qb)
    {
-      quizzes = new ArrayList<quizBean>();
+      quizzes = new ArrayList<QuizBean>();
       quizzes.add (qb);
    }
 
@@ -39,13 +39,13 @@ public class quizzes implements Iterable<quizBean>
    }
 
    @Override
-   public Iterator<quizBean> iterator()
+   public Iterator<QuizBean> iterator()
    {
        return quizzes.iterator();
    }
 
    // ***** setters & getters //
-   public void addQuiz (quizBean qb)
+   public void addQuiz (QuizBean qb)
    {
       quizzes.add (qb);
    }

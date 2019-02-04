@@ -22,7 +22,7 @@ import java.time.*;
 </course>
 ***************************************** */
 
-public class courseBean
+public class CourseBean
 {
    private String courseID;
    private String courseTitle;
@@ -32,8 +32,8 @@ public class courseBean
    private String dataLocation;
 
    // *** Constructor *** //
-   public courseBean (String courseID, String courseTitle, String retakeDuration,
-                      LocalDate startSkip, LocalDate endSkip, String dataLocation)
+   public CourseBean(String courseID, String courseTitle, String retakeDuration,
+                     LocalDate startSkip, LocalDate endSkip, String dataLocation)
    {
       this.courseID       = courseID;
       this.courseTitle    = courseTitle;

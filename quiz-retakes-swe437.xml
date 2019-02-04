@@ -15,7 +15,7 @@
   <retake>
     <id>2</id>
     <location>???</location> <!-- TA's office hours -->
-    <dateGiven> <!-- Same format as in quizzes.xml -->
+    <dateGiven> <!-- Same format as in Quizzes.xml -->
       <month>2</month> <!-- 01..12 -->
       <day>5</day> <!-- 1..31 -->
       <hour>16</hour> <!-- 0..23 -->
@@ -23,6 +23,6 @@
     </dateGiven>
   </retake>
 
-<!-- Add more retakes below ... the id should be unique and increment with date -->
+<!-- Add more Retakes below ... the id should be unique and increment with date -->
 
 </retakes>

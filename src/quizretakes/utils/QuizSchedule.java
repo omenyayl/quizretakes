@@ -4,13 +4,9 @@
  import javax.servlet.http.HttpServlet;
  import javax.servlet.http.HttpServletRequest;
  import javax.servlet.http.HttpServletResponse;
- import javax.servlet.http.HttpSession;
  import javax.servlet.ServletException;
- import javax.servlet.ServletContext;
  import java.io.IOException;
  import java.io.PrintWriter;
- import javax.xml.parsers.ParserConfigurationException;
- import java.util.ArrayList;
  import java.time.*;
  import java.lang.Long;
  import java.lang.String;
@@ -18,35 +14,32 @@
  import java.io.File;
  import java.io.FileWriter;
  import java.io.BufferedWriter;
- import java.io.FileReader;
- import java.io.BufferedReader;
- import java.io.IOException;
 
  /**
   * @author Jeff Offutt
   *         Date: January, 2019
   *
   * Wiring the pieces together:
-  *    quizschedule.java -- Servlet entry point for students to schedule quizzes
-  *    quizReader.java -- reads XML file and stores in quizzes.
-                             Used by quizschedule.java
-  *    quizzes.java -- A list of quizzes from the XML file
-  *                    Used by quizschedule.java
-  *    quizBean.java -- A simple quiz bean
-  *                      Used by quizzes.java and readQuizzesXML.java
-  *    retakesReader.java -- reads XML file and stores in retakes.
-                             Used by quizschedule.java
-  *    retakes.java -- A list of retakes from the XML file
-  *                    Used by quizschedule.java
-  *    retakeBean.java -- A simple retake bean
-  *                      Used by retakes.java and readRetakesXML.java
+  *    QuizSchedule.java -- Servlet entry point for students to schedule Quizzes
+  *    QuizReader.java -- reads XML file and stores in Quizzes.
+                             Used by QuizSchedule.java
+  *    Quizzes.java -- A list of Quizzes from the XML file
+  *                    Used by QuizSchedule.java
+  *    QuizBean.java -- A simple quiz bean
+  *                      Used by Quizzes.java and readQuizzesXML.java
+  *    RetakesReader.java -- reads XML file and stores in Retakes.
+                             Used by QuizSchedule.java
+  *    Retakes.java -- A list of Retakes from the XML file
+  *                    Used by QuizSchedule.java
+  *    RetakeBean.java -- A simple retake bean
+  *                      Used by Retakes.java and readRetakesXML.java
   *    ApptBean.java -- A bean to hold appointments
 
-  *    quizzes.xml -- Data file of when quizzes were given
-  *    retakes.xml -- Data file of when retakes are given
+  *    Quizzes.xml -- Data file of when Quizzes were given
+  *    Retakes.xml -- Data file of when Retakes are given
   */
 
- public class quizschedule extends HttpServlet
+ public class QuizSchedule extends HttpServlet
  {
     // Data files
     // location maps to /webapps/offutt/WEB-INF/data/ from a terminal window.
@@ -55,7 +48,7 @@
     static private final String separator = ",";
     private static final String courseBase   = "course";
     private static final String quizzesBase = "quiz-orig";
-    private static final String retakesBase = "quiz-retakes";
+    private static final String retakesBase = "quiz-Retakes";
     private static final String apptsBase   = "quiz-appts";
 
     // Filenames to be built from above and the courseID parameter
@@ -81,7 +74,7 @@
  {
     response.setContentType ("text/html");
     PrintWriter out = response.getWriter ();
-    servletUtils.printHeader (out);
+    ServletUtils.printHeader (out);
 
     // Whoami? (Used in form)
     thisServlet = (request.getRequestURL()).toString();
@@ -93,15 +86,15 @@
     courseID = request.getParameter("courseID");
     if (courseID != null && !courseID.isEmpty())
     {  // If not, ask for one.
-       courseBean course;
-       courseReader cr = new courseReader();
+       CourseBean course;
+       CourseReader cr = new CourseReader();
        courseFileName = dataLocation + courseBase + "-" + courseID + ".xml";
        try {
           course = cr.read(courseFileName);
        } catch (Exception e) {
           String message = "<p>Can't find the data files for course ID " + courseID + ". You can try again.";
-          servletUtils.printNeedCourseID (out, thisServlet, message);
-          servletUtils.printFooter (out);
+          ServletUtils.printNeedCourseID (out, thisServlet, message);
+          ServletUtils.printFooter (out);
           return;
        }
        daysAvailable = Integer.parseInt(course.getRetakeDuration());
@@ -111,11 +104,11 @@
        String retakesFileName = dataLocation + retakesBase + "-" + courseID + ".xml";
        String apptsFileName   = dataLocation + apptsBase   + "-" + courseID + ".txt";
 
-       // Load the quizzes and the retake times from disk
-       quizzes quizList    = new quizzes();
-       retakes retakesList = new retakes();
-       quizReader    qr = new quizReader();
-       retakesReader rr = new retakesReader();
+       // Load the Quizzes and the retake times from disk
+       Quizzes quizList    = new Quizzes();
+       Retakes retakesList = new Retakes();
+       QuizReader qr = new QuizReader();
+       RetakesReader rr = new RetakesReader();
 
        try { // Read the files and print the form
           quizList    = qr.read (quizzesFileName);
@@ -124,14 +117,14 @@
        } catch (Exception e)
        {
           String message = "<p>Can't find the data files for course ID " + courseID + ". You can try again.";
-          servletUtils.printNeedCourseID (out, thisServlet, message);
+          ServletUtils.printNeedCourseID (out, thisServlet, message);
        }
     }
     else
     {
-       servletUtils.printNeedCourseID (out, thisServlet, "");
+       ServletUtils.printNeedCourseID (out, thisServlet, "");
     }
-    servletUtils.printFooter (out);
+    ServletUtils.printFooter (out);
  }
 
  // doPost saves an appointment in a file and prints an acknowledgement
@@ -153,7 +146,7 @@
 
     response.setContentType ("text/html");
     PrintWriter out = response.getWriter ();
-    servletUtils.printHeader (out);
+    ServletUtils.printHeader (out);
     out.println ("<body bgcolor=\"#DDEEDD\">");
 
     if(allIDs != null && studentName != null && studentName.length() > 0)
@@ -201,9 +194,9 @@
     } else { // allIDs == null or name is null
        out.println ("<body bgcolor=\"#DDEEDD\">");
        if(allIDs == null)
-          out.println ("<p>You didn't choose any quizzes to retake.");
+          out.println ("<p>You didn't choose any Quizzes to retake.");
        if(studentName == null || studentName.length() == 0)
-          out.println ("<p>You didn't give a name ... no anonymous quiz retakes.");
+          out.println ("<p>You didn't give a name ... no anonymous quiz Retakes.");
 
        thisServlet = (request.getRequestURL()).toString();
        // CS server has a flaw--requires https & 8443, but puts http & 8080 on the requestURL
@@ -211,7 +204,7 @@
        thisServlet = thisServlet.replace("8080", "8443");
        out.println("<p><a href='" + thisServlet + "?courseID=" + courseID + "'>You can try again if you like.</a>");
     }
-    servletUtils.printFooter (out);
+    ServletUtils.printFooter (out);
  }
 
  /**
@@ -220,7 +213,7 @@
   * @throws ServletException
   * @throws IOException
  */
- private void printQuizScheduleForm (PrintWriter out, quizzes quizList, retakes retakesList, courseBean course)
+ private void printQuizScheduleForm (PrintWriter out, Quizzes quizList, Retakes retakesList, CourseBean course)
         throws ServletException, IOException
  {
     // Check for a week to skip
@@ -238,7 +231,7 @@
 
     // print the main form
     out.println ("<form name='quizSchedule' method='post' action='" + thisServlet + "?courseID=" + courseID + "' >");
-    out.print   ("  <p>You can sign up for quiz retakes within the next two weeks. ");
+    out.print   ("  <p>You can sign up for quiz Retakes within the next two weeks. ");
     out.print   ("Enter your name (as it appears on the class roster), ");
     out.println ("then select which date, time, and quiz you wish to retake from the following list.");
     out.println ("  <br/>");
@@ -255,7 +248,7 @@
 
     out.print   ("  <p>Today is ");
     out.println ((today.getDayOfWeek()) + ", " + today.getMonth() + " " + today.getDayOfMonth() );
-    out.print   ("  <p>Currently scheduling quizzes for the next two weeks, until ");
+    out.print   ("  <p>Currently scheduling Quizzes for the next two weeks, until ");
     out.println ((endDay.getDayOfWeek()) + ", " + endDay.getMonth() + " " + endDay.getDayOfMonth() );
     out.println ("  <br/>");
 
@@ -266,7 +259,7 @@
 
     out.println ("  <table border=1 style='background-color:#99dd99'><tr><td>"); // outer table for borders
     out.println ("  <tr><td>");
-    for(retakeBean r: retakesList)
+    for(RetakeBean r: retakesList)
     {
        LocalDate retakeDay = r.getDate();
        if (!(retakeDay.isBefore (today)) && !(retakeDay.isAfter (endDay)))
@@ -275,7 +268,7 @@
           if (skip && retakeDay.isAfter(origEndDay))
           {  // A "skip" week such as spring break.
              out.println ("    <table border=1 width=100% style='background-color:white'>"); // inner table to format skip week
-             out.println ("      <tr><td>Skipping a week, no quiz or retakes.");
+             out.println ("      <tr><td>Skipping a week, no quiz or Retakes.");
              out.println ("    </table>"); // inner table for skip week
              // Just print for the FIRST retake day after the skip week
              skip = false;
@@ -289,7 +282,7 @@
                        r.timeAsString() + " in " +
                        r.getLocation());
 
-          for(quizBean q: quizList)
+          for(QuizBean q: quizList)
           {
              LocalDate quizDay = q.getDate();
              LocalDate lastAvailableDay = quizDay.plusDays(new Long(daysAvailable));
@@ -324,7 +317,7 @@
     out.println ("<br/>");
     out.println ("<table border=1>");
     out.println ("<tr><td align='middle'>All quiz retake opportunities</td></tr>");
-    for(retakeBean r: retakesList)
+    for(RetakeBean r: retakesList)
     {
        out.print   ("  <tr><td>");
        out.print   (r);
@@ -333,4 +326,4 @@
     out.println ("</table>");
  }
 
- } // end quizschedule class
+ } // end QuizSchedule class

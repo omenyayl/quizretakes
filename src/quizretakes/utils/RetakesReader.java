@@ -1,6 +1,5 @@
 // JO, 3-Jan-2019
-// Reads XML with DOM parser
-// Stores in a quizList and returns
+// Checking XML and reading with DOM parser
 // No xsd or validation as yet
 
 package quizretakes.utils;
@@ -8,7 +7,6 @@ package quizretakes.utils;
 import java.lang.*;
 import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
-
 
 // XML parsers are so needy
 // package dom; // in the documentation I found
@@ -23,17 +21,16 @@ import org.xml.sax.SAXException;
 
 // These classes read the sample XML file and manage output:
 import java.io.File;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 
-public class quizReader
+public class RetakesReader
 {
 
-public quizzes read (String filename)
+public Retakes read (String filename)
        throws IOException, ParserConfigurationException, SAXException
 {
-   quizzes quizList = new quizzes();
-   quizBean quiz;
+   Retakes retakeList = new Retakes();
+   RetakeBean retake;
+
 
    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
    DocumentBuilder builder = factory.newDocumentBuilder();
@@ -43,15 +40,17 @@ public quizzes read (String filename)
    NodeList nodeList = document.getDocumentElement().getChildNodes();
    for (int i = 0; i < nodeList.getLength(); i++)
    {
-      // XML structure is simple--a bunch of quizzes
+      // XML structure is simple--a bunch of Quizzes
       // Not validating the data values
       Node node = nodeList.item(i);
       if (node.getNodeType() == Node.ELEMENT_NODE)
       {
          Element elem = (Element) node;
 
-         // quiz IDs should be unique
+         // retake IDs should be unique
          Integer ID = Integer.parseInt(elem.getElementsByTagName("id").item(0).getChildNodes().item(0).getNodeValue());
+         // Location is a string (building and room probably)
+         String location = elem.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
          // month is an integer 1..12
          Integer month = Integer.parseInt(elem.getElementsByTagName("month").item(0).getChildNodes().item(0).getNodeValue());
          // day is integer 1..31
@@ -61,15 +60,16 @@ public quizzes read (String filename)
          // minute is integer 0..59
          Integer minute = Integer.parseInt(elem.getElementsByTagName("minute").item(0).getChildNodes().item(0).getNodeValue());
          // Put one XML record into a bean and add it to the list
-         quiz = new quizBean (ID, month, day, hour, minute);
-         quizList.addQuiz (quiz);
+         retake = new RetakeBean(ID, location, month, day, hour, minute);
+         retakeList.addRetake (retake);
+
       } // end if
    } // end for
 
    // XML file may not be sorted
-   quizList.sort();
+   retakeList.sort();
 
-   return (quizList);
+   return (retakeList);
 
 } // end read
 

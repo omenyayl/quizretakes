@@ -8,7 +8,7 @@ import java.time.*;
  * @author Jeff Offutt
  */
 /* *****************************************
-<quizzes>
+<Quizzes>
   <quiz>
     <id>1</id> --integer > 0
     <dateGiven>
@@ -21,17 +21,17 @@ import java.time.*;
   <quiz>
     <id>2</id>
 ...
-</quizzes>
+</Quizzes>
 ***************************************** */
 
-public class quizBean implements Comparable<quizBean>
+public class QuizBean implements Comparable<QuizBean>
 {
    private int ID;
    private LocalDate dateGiven;
    private LocalTime timeGiven;
 
    // *** Constructor *** //
-   public quizBean (int quizID, int month, int day, int hour, int minute)
+   public QuizBean(int quizID, int month, int day, int hour, int minute)
    {
       ID = quizID;
       int year = Year.now().getValue();
@@ -40,7 +40,7 @@ public class quizBean implements Comparable<quizBean>
    }
 
    @Override
-   public int compareTo (quizBean quizB)
+   public int compareTo (QuizBean quizB)
    {
       return this.ID - quizB.ID;
    }

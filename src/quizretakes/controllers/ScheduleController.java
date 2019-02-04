@@ -1,7 +1,5 @@
 package quizretakes.controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -11,8 +9,8 @@ import javafx.scene.text.Text;
 import org.xml.sax.SAXException;
 import quizretakes.Main;
 import quizretakes.utils.QuizXMLFile;
-import quizretakes.utils.courseBean;
-import quizretakes.utils.courseReader;
+import quizretakes.utils.CourseBean;
+import quizretakes.utils.CourseReader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -54,8 +52,8 @@ public class ScheduleController {
     }
 
     void readDataFiles(String courseID) {
-        courseBean course;
-        courseReader cr = new courseReader();
+        CourseBean course;
+        CourseReader cr = new CourseReader();
 
         courseFileName = QuizXMLFile.getCourseFilename(courseID);
 
