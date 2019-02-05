@@ -87,7 +87,6 @@ public class ScheduleController {
 
         String quizzesFilename = QuizXMLFile.getQuizzesFilename(courseID);
         String retakesFilename = QuizXMLFile.getRetakesFilename(courseID);
-        String apptsFilename = QuizXMLFile.getApptsFilename(courseID);
 
         Quizzes quizList    = new Quizzes();
         Retakes retakesList = new Retakes();
