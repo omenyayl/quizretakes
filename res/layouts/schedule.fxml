@@ -79,7 +79,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All Opportunities">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All Retake Sessions">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

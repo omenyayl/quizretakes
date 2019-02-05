@@ -32,7 +32,7 @@ public class QuizListItem {
     }
 
     public String toString() {
-        return String.format("Opportunity #%d: Quiz %d from %s, %d/%d",
+        return String.format("Session #%d: Quiz %d from %s, %d/%d",
                 retakeID,
                 quizID,
                 date.getDayOfWeek(),
