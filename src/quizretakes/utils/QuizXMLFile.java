@@ -4,7 +4,7 @@ public class QuizXMLFile {
     public static final String separator = ",";
     public static final String courseBase   = "course";
     private static final String quizzesBase = "quiz-orig";
-    private static final String retakesBase = "quiz-Retakes";
+    private static final String retakesBase = "quiz-retakes";
     private static final String apptsBase   = "quiz-appts";
 
     public static String getQuizzesFilename(String courseID) {
