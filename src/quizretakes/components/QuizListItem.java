@@ -1,4 +1,6 @@
-package quizretakes.Components;
+package quizretakes.components;
+
+import quizretakes.utils.QuizXMLFile;
 
 import java.time.LocalDate;
 
@@ -23,6 +25,10 @@ public class QuizListItem {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public String getIDString() {
+        return this.retakeID + QuizXMLFile.separator + quizID;
     }
 
     public String toString() {

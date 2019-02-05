@@ -11,7 +11,7 @@ import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import org.xml.sax.SAXException;
-import quizretakes.Components.QuizListItem;
+import quizretakes.components.QuizListItem;
 import quizretakes.Main;
 import quizretakes.utils.*;
 
@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static quizretakes.utils.QuizXMLFile.separator;
 
 public class ScheduleController {
     public TextField textFieldName;
@@ -41,7 +43,6 @@ public class ScheduleController {
     private String mCourseID;
     private String courseFileName;
     private int daysAvailable = 14;
-    private static final String separator = ",";
 
     private static final String ERROR_NO_DATA_FILE = "Error 101: Cannot find data files";
     private static final String ERROR_NO_NAME = "Error 102: Name is blank";
@@ -190,8 +191,8 @@ public class ScheduleController {
         // Get name and list of retake requests from parameters
         String studentName = textFieldName.getText();
 
-        List<Integer> allIDs = selectedQuizzes.stream()
-                .map(QuizListItem::getQuizID)
+        List<String> allIDs = selectedQuizzes.stream()
+                .map(QuizListItem::getIDString)
                 .collect(Collectors.toList());
 
         // Append the new appointment to the file
@@ -206,7 +207,7 @@ public class ScheduleController {
             FileWriter fw = new FileWriter(file.getAbsoluteFile(), true); //append mode
             BufferedWriter bw = new BufferedWriter(fw);
 
-            for(int oneIDPair : allIDs)
+            for(String oneIDPair : allIDs)
             {
                 bw.write(oneIDPair + separator + studentName + "\n");
             }
