@@ -17,7 +17,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         pStage = primaryStage;
         pStage.setTitle("Quiz Retakes");
-        switchScene("/layouts/login.fxml", getClass(), 300, 300);
+        switchScene(Layouts.LOGIN.toString(), getClass(), 300, 300);
     }
 
     public static Stage getStage(){
@@ -37,9 +37,4 @@ public class Main extends Application {
         pStage.show();
     }
 
-    public static void setScene(Parent root, Class<?> context) {
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(context.getResource("/bootstrap3.css").toExternalForm());
-        pStage.setScene(scene);
-    }
 }

@@ -18,7 +18,7 @@ public class ApptsReader
 
 static private final String separator = ",";
 
-public ArrayList read (String filename) throws IOException
+public ArrayList<ApptBean> read (String filename) throws IOException
 {
 
    // read appointments file

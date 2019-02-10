@@ -12,6 +12,7 @@ import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import org.xml.sax.SAXException;
+import quizretakes.Layouts;
 import quizretakes.components.QuizListItem;
 import quizretakes.Main;
 import quizretakes.utils.*;
@@ -44,11 +45,13 @@ public class ScheduleController {
     private String courseFileName;
     private int daysAvailable = 14;
 
-    private static final String ERROR_NO_DATA_FILE = "Error 101: Cannot find data files";
+    private static final String ERROR_NO_COURSE_FILE = "Error 101: Cannot find the course file";
     private static final String ERROR_NO_NAME = "Error 102: Name is blank";
     private static final String ERROR_NO_QUIZZES_SELECTED = "Error 103: No quizzes selected";
     private static final String ERROR_FAILED_SAVE = "Error 104: Could not save appointment";
     private static final String ERROR_NO_APPTS_FILE = "Error 105: Did not find the appointments file";
+    private static final String ERROR_NO_DATA_FILES = "Error 108: Cannot find retakes and/or quiz XML files";
+
 
     private HashSet<QuizListItem> selectedQuizzes;
 
@@ -98,9 +101,8 @@ public class ScheduleController {
         try {
             course = cr.read(courseFileName);
         } catch (IOException | ParserConfigurationException | SAXException e) {
-            String message = String.format("%s for %s", ERROR_NO_DATA_FILE, courseID);
-            textError.setText(message);
-            textError.setVisible(true);
+            String message = String.format("%s for %s", ERROR_NO_COURSE_FILE, courseID);
+            updateErrors(message);
             return;
         }
 
@@ -118,6 +120,7 @@ public class ScheduleController {
             updateData(quizList, retakesList, course);
         } catch (IOException | ParserConfigurationException | SAXException e) {
             e.printStackTrace();
+            updateErrors(ERROR_NO_DATA_FILES);
         }
 
         selectedQuizzes = new HashSet<>();
@@ -243,15 +246,14 @@ public class ScheduleController {
 
             textSuccess.setVisible(true);
         } catch (IOException e) {
-            textError.setText(ERROR_FAILED_SAVE);
-            textError.setVisible(true);
+            updateErrors(ERROR_FAILED_SAVE);
         }
 
     }
 
     public void onClickButtonBack(ActionEvent actionEvent) {
         try {
-            Main.switchScene("/layouts/login.fxml", getClass(), 300, 300);
+            Main.switchScene(Layouts.LOGIN.toString(), getClass(), 300, 300);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -266,18 +268,17 @@ public class ScheduleController {
             errorText += ERROR_NO_QUIZZES_SELECTED + "\n";
         }
         if (errorText.isEmpty()) {
-            textError.setVisible(false);
+            updateErrors();
             submitData();
         }
         else {
-            textError.setText(errorText);
-            textError.setVisible(true);
+            updateErrors(errorText);
             textSuccess.setVisible(false);
         }
     }
 
     public void onClickButtonRefresh(ActionEvent actionEvent) {
-        textError.setVisible(false);
+        updateErrors();
         textSuccess.setVisible(false);
         readDataFiles(Main.pCourseID);
     }
@@ -292,15 +293,24 @@ public class ScheduleController {
 
         if (courseDir.exists()) {
             try {
-                Main.switchScene("/layouts/appointments.fxml", getClass(), 800, 600);
+                Main.switchScene(Layouts.APPOINTMENTS.toString(), getClass(), 800, 600);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         else {
-            textError.setText(ERROR_NO_APPTS_FILE);
-            textError.setVisible(true);
+            updateErrors(ERROR_NO_APPTS_FILE);
             textSuccess.setVisible(false);
+        }
+    }
+
+    private void updateErrors(String...errors) {
+        if (errors.length != 0) {
+            textError.setVisible(true);
+            textError.setText(String.join("\n", errors));
+        }
+        else {
+            textError.setVisible(false);
         }
     }
 }
