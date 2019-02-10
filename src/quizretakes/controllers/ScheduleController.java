@@ -12,6 +12,7 @@ import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import org.xml.sax.SAXException;
+import quizretakes.Layouts;
 import quizretakes.components.QuizListItem;
 import quizretakes.Main;
 import quizretakes.utils.*;
@@ -251,7 +252,7 @@ public class ScheduleController {
 
     public void onClickButtonBack(ActionEvent actionEvent) {
         try {
-            Main.switchScene("/layouts/login.fxml", getClass(), 300, 300);
+            Main.switchScene(Layouts.LOGIN.toString(), getClass(), 300, 300);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -292,7 +293,7 @@ public class ScheduleController {
 
         if (courseDir.exists()) {
             try {
-                Main.switchScene("/layouts/appointments.fxml", getClass(), 800, 600);
+                Main.switchScene(Layouts.APPOINTMENTS.toString(), getClass(), 800, 600);
             } catch (IOException e) {
                 e.printStackTrace();
             }
