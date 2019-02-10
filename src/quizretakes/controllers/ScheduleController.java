@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -40,7 +41,6 @@ public class ScheduleController {
     public Text textError;
     public Text textSuccess;
 
-    private String mCourseID;
     private String courseFileName;
     private int daysAvailable = 14;
 
@@ -48,9 +48,24 @@ public class ScheduleController {
     private static final String ERROR_NO_NAME = "Error 102: Name is blank";
     private static final String ERROR_NO_QUIZZES_SELECTED = "Error 103: No quizzes selected";
     private static final String ERROR_FAILED_SAVE = "Error 104: Could not save appointment";
+    private static final String ERROR_NO_APPTS_FILE = "Error 105: Did not find the appointments file";
 
     private HashSet<QuizListItem> selectedQuizzes;
 
+    /**
+     * Automatically called after the controller is instantiated.
+     */
+    @FXML
+    public void initialize() {
+        initViews();
+        if (Main.pCourseID != null) {
+            readDataFiles(Main.pCourseID);
+        }
+    }
+
+    /**
+     * Initializes views to dynamically resize with the window
+     */
     private void initViews() {
         scrollPaneAllOpportunities.widthProperty().addListener((obs, oldVal, newVal) -> {
             listViewRequestRetakes.setPrefWidth(newVal.doubleValue());
@@ -66,10 +81,14 @@ public class ScheduleController {
             gridPaneRetakes.setPrefHeight(newVal.doubleValue() * 0.7);
         });
 
-        textError.setWrappingWidth(Main.getStage().getWidth()*0.8);
-        textCourseID.setText(mCourseID);
+        textError.setWrappingWidth(Main.getStage().getWidth()*0.9);
+        textCourseID.setText(Main.pCourseID);
     }
 
+    /**
+     * Reads data files with respect to the course ID
+     * @param courseID the ID of the course, e.g. swe437
+     */
     void readDataFiles(String courseID) {
         CourseBean course;
         CourseReader cr = new CourseReader();
@@ -105,6 +124,12 @@ public class ScheduleController {
 
     }
 
+    /**
+     * Updates the ListView data with the data from Quizzes, Retakes, and CourseBean
+     * @param quizList list of quiz data
+     * @param retakesList list of retake data
+     * @param course course data
+     */
     private void updateData(Quizzes quizList, Retakes retakesList, CourseBean course){
         LocalDate startSkip = course.getStartSkip();
         LocalDate endSkip   = course.getEndSkip();
@@ -180,12 +205,14 @@ public class ScheduleController {
 
     }
 
+
+    /**
+     * Calls after the user clicks the submit button. This creates an appointment file that corresponds with the
+     * user's selected appointments
+     */
     void submitData() {
 
-        boolean IOerrFlag = false;
-        String IOerrMessage = "";
-
-        String apptsFileName = QuizXMLFile.getApptsFilename(mCourseID);
+        String apptsFileName = QuizXMLFile.getApptsFilename(Main.pCourseID);
 
         // Get name and list of retake requests from parameters
         String studentName = textFieldName.getText();
@@ -222,14 +249,6 @@ public class ScheduleController {
 
     }
 
-    void initData(String courseID)  {
-        this.mCourseID = courseID;
-
-        initViews();
-
-        readDataFiles(courseID);
-    }
-
     public void onClickButtonBack(ActionEvent actionEvent) {
         try {
             Main.switchScene("/layouts/login.fxml", getClass(), 300, 300);
@@ -260,6 +279,28 @@ public class ScheduleController {
     public void onClickButtonRefresh(ActionEvent actionEvent) {
         textError.setVisible(false);
         textSuccess.setVisible(false);
-        readDataFiles(mCourseID);
+        readDataFiles(Main.pCourseID);
+    }
+
+    public void onClickButtonAppointments(ActionEvent actionEvent) {
+
+        File courseDir = new File(
+                String.join(
+                        System.getProperty("user.dir"),
+                        QuizXMLFile.getApptsFilename(Main.pCourseID))
+        );
+
+        if (courseDir.exists()) {
+            try {
+                Main.switchScene("/layouts/appointments.fxml", getClass(), 800, 600);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            textError.setText(ERROR_NO_APPTS_FILE);
+            textError.setVisible(true);
+            textSuccess.setVisible(false);
+        }
     }
 }

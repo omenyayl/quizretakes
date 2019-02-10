@@ -1,9 +1,6 @@
 package quizretakes.controllers;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import quizretakes.Main;
@@ -31,15 +28,8 @@ public class LoginController {
 
         if (!courseID.isEmpty() && courseDir.exists()) {
             try {
-
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/schedule.fxml"));
-                Parent root = fxmlLoader.load();
-                ScheduleController scheduleController = fxmlLoader.getController();
-                scheduleController.initData(courseID);
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add(getClass().getResource("/bootstrap3.css").toExternalForm());
-                Main.getStage().setScene(scene);
-
+                Main.pCourseID = courseID;
+                Main.switchScene("/layouts/schedule.fxml", getClass(), 800, 600);
             } catch (IOException e) {
                 e.printStackTrace();
             }

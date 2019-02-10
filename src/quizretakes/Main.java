@@ -11,12 +11,12 @@ import java.io.IOException;
 public class Main extends Application {
 
     private static Stage pStage;
+    public static String pCourseID;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         pStage = primaryStage;
         pStage.setTitle("Quiz Retakes");
-
         switchScene("/layouts/login.fxml", getClass(), 300, 300);
     }
 
@@ -35,5 +35,11 @@ public class Main extends Application {
 
         pStage.setScene(scene);
         pStage.show();
+    }
+
+    public static void setScene(Parent root, Class<?> context) {
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(context.getResource("/bootstrap3.css").toExternalForm());
+        pStage.setScene(scene);
     }
 }

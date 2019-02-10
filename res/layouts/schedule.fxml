@@ -21,6 +21,7 @@
          <items>
             <Button mnemonicParsing="false" onAction="#onClickButtonBack" text="Cancel" />
             <Button mnemonicParsing="false" onAction="#onClickButtonRefresh" text="Reload" />
+            <Button mnemonicParsing="false" onAction="#onClickButtonAppointments" text="Appointments" />
          </items>
       </ToolBar>
       <VBox alignment="TOP_CENTER">
