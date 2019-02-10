@@ -136,7 +136,7 @@
                <children>
                   <Text fx:id="textError" fill="#a80000" strokeType="OUTSIDE" strokeWidth="0.0" text="Error" visible="false">
                      <VBox.margin>
-                        <Insets />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </Text>
                   <Button mnemonicParsing="false" onAction="#onClickButtonSubmitRequest" text="Submit Request" />

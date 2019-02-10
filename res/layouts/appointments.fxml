@@ -14,6 +14,7 @@
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
           <Button mnemonicParsing="false" onAction="#onClickButtonBack" text="Back" />
+            <Button mnemonicParsing="false" onAction="#onClickButtonReload" text="Reload" />
         </items>
       </ToolBar>
       <VBox>
