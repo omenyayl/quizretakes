@@ -17,7 +17,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         pStage = primaryStage;
         pStage.setTitle("Quiz Retakes");
-        switchScene(Layouts.LOGIN.toString(), getClass(), 300, 300);
+        switchScene(Layouts.LOGIN, getClass(), 300, 300);
     }
 
     public static Stage getStage(){
@@ -28,8 +28,8 @@ public class Main extends Application {
         launch(args);
     }
 
-    public static void switchScene(String resourcePath, Class<?> context, int width, int height) throws IOException {
-        Parent root = FXMLLoader.load(context.getResource(resourcePath));
+    public static void switchScene(Layouts resourcePath, Class<?> context, int width, int height) throws IOException {
+        Parent root = FXMLLoader.load(context.getResource(resourcePath.toString()));
         Scene scene = new Scene(root, width, height);
         scene.getStylesheets().add(context.getResource("/bootstrap3.css").toExternalForm());
 

@@ -3,6 +3,7 @@ package quizretakes.controllers;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import quizretakes.Layouts;
 import quizretakes.Main;
 import quizretakes.utils.QuizXMLFile;
 
@@ -29,7 +30,7 @@ public class LoginController {
         if (!courseID.isEmpty() && courseDir.exists()) {
             try {
                 Main.pCourseID = courseID;
-                Main.switchScene("/layouts/schedule.fxml", getClass(), 800, 600);
+                Main.switchScene(Layouts.SCHEDULE, getClass(), 800, 600);
             } catch (IOException e) {
                 e.printStackTrace();
             }

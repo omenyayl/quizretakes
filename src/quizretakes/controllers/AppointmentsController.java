@@ -139,7 +139,7 @@ public class AppointmentsController {
     }
 
     public void onClickButtonBack(ActionEvent actionEvent) throws IOException {
-        Main.switchScene(Layouts.SCHEDULE.toString(), getClass(), 800, 600);
+        Main.switchScene(Layouts.SCHEDULE, getClass(), 800, 600);
     }
 
     private void updateErrors(String...errors) {
