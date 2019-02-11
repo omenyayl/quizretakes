@@ -109,7 +109,10 @@ public class AppointmentsController {
 
         appointments = appts.stream()
                 .map((appointment) -> {
-                    RetakeBean r = retakeBeanHashMap.get(appointment.getRetakeID());
+                    RetakeBean r = null;
+                    if (retakeBeanHashMap != null) {
+                        r = retakeBeanHashMap.get(appointment.getRetakeID());
+                    }
                     if (r == null) {
                         return String.format("Session ID: %d - Quiz ID: %d - Name: %s",
                         appointment.getRetakeID(),
