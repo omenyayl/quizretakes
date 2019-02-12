@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +25,6 @@ public class AppointmentsController {
     public ListView<String> listViewAppointments;
     public Text textError;
 
-    private HashMap<Integer, RetakeBean> retakeBeanHashMap;
 
     private static final String ERROR_CANNOT_READ_APPOINTMENTS = "Error 106: Cannot find/read appointments file.";
     private static final String ERROR_CANNOT_READ_RETAKES = "Error 107: Cannot find/read retakes data file.";
@@ -48,15 +46,16 @@ public class AppointmentsController {
     @FXML
     public void initialize() {
         initViews();
-        readData();
+        initData();
     }
 
     /**
      * Reads the retake and appointment data
      */
-    private void readData() {
-        retakeBeanHashMap = readDateTimeLocations(QuizXMLFile.getRetakesFilename(Main.pCourseID));
-        readAppointmentsData(QuizXMLFile.getApptsFilename(Main.pCourseID));
+    private void initData() {
+        HashMap<Integer, RetakeBean> retakeBeanHashMap = readDateTimeLocations(QuizXMLFile.getRetakesFilename(Main.pCourseID));
+        ArrayList<ApptBean> appts = readAppointmentsData(QuizXMLFile.getApptsFilename(Main.pCourseID));
+        updateListData(retakeBeanHashMap, appts);
     }
 
     /**
@@ -88,23 +87,22 @@ public class AppointmentsController {
      * Reads the appointments TXT file
      * @param appointmentsFile Path to the appointments XML file
      */
-    private void readAppointmentsData(String appointmentsFile) {
-        ArrayList<ApptBean> appts;
+    private ArrayList<ApptBean> readAppointmentsData(String appointmentsFile) {
+        ArrayList<ApptBean> appts = null;
         try {
             appts = new ApptsReader().read(appointmentsFile);
         } catch (IOException e) {
             updateErrors(ERROR_CANNOT_READ_APPOINTMENTS);
             e.printStackTrace();
-            return;
         }
-        updateListData(appts);
+        return appts;
     }
 
     /**
      * Updates the appointments ListView using the read appointment data
      * @param appts Read appointments data
      */
-    private void updateListData(ArrayList<ApptBean> appts) {
+    private void updateListData(HashMap<Integer, RetakeBean> retakeBeanHashMap, ArrayList<ApptBean> appts) {
         List<String> appointments;
 
         appointments = appts.stream()
@@ -153,6 +151,6 @@ public class AppointmentsController {
     }
 
     public void onClickButtonReload(ActionEvent actionEvent) {
-        readData();
+        initData();
     }
 }

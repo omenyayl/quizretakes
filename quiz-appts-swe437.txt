@@ -3,3 +3,5 @@
 2,2,Maryam
 2,2,Oleg Menyaylenko
 1,1,Bill Smith
+2,1,Alex Stukov
+1,2,Alex Stukov
