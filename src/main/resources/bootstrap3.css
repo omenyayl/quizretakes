@@ -359,13 +359,6 @@ VBox > .split-menu-button.last > .arrow-button {
 	-fx-background-color: #333333;
 }
 
-.check-menu-item:checked:hover > .left-container > .check,
-.check-menu-item:checked:focused > .left-container > .check,
-.radio-menu-item:checked:hover > .left-container > .radio,
-.radio-menu-item:checked:focused > .left-container > .radio {
-	-fx-background-color: #333333;
-}
-
 .context-menu {
 	-fx-border-radius: 4;
 	-fx-background-radius: 4;
