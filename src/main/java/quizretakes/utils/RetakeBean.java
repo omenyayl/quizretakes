@@ -52,6 +52,7 @@ public class RetakeBean implements Comparable<RetakeBean>
    {
       return whenOffered;
    }
+   public LocalTime getTime() { return timeOffered; }
    public String getLocation()
    {
       return location;

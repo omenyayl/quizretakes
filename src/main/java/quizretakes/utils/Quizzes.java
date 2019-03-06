@@ -55,4 +55,8 @@ public class Quizzes implements Iterable<QuizBean>
       return (Arrays.toString(quizzes.toArray()));
    }
 
+   public boolean isEmpty() {
+      return this.quizzes.size() == 0;
+   }
+
 }

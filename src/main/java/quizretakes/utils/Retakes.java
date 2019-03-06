@@ -54,4 +54,8 @@ public class Retakes implements Iterable<RetakeBean>
       return (Arrays.toString(retakes.toArray()));
    }
 
+   public boolean isEmpty() {
+      return retakes.size() == 0;
+   }
+
 }

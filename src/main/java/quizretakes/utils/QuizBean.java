@@ -50,6 +50,7 @@ public class QuizBean implements Comparable<QuizBean>
    {
       return dateGiven;
    }
+   public LocalTime getTime() { return timeGiven; }
    public int getID()
    {
       return ID;
