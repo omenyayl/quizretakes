@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class RetakesWriterTest {
 
-    private static final String retakesXMLPath = "./out/test-retakes.xml";
+    private static final String retakesXMLPath = "./test-retakes.xml";
 
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();

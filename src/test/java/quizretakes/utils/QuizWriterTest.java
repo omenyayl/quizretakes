@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
     public class QuizWriterTest {
 
-    private static final String testQuizXMLPath = "./out/testQuizzes.xml";
+    private static final String testQuizXMLPath = "./testQuizzes.xml";
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
