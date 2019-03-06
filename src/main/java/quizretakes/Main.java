@@ -118,6 +118,12 @@ Refactoring:
 - Added a for loop in constructDocumentFromQuizzes that goes through
   the quizzes and adds a new node for each quiz.
 
+QuizWriterTest.createEmptyQuizXMLFile:
+Tests whether the QuizWriter throws an IllegalArgumentException
+if there is an empty quizzes list                              
 
+Refactoring:
+- Added a method isEmpty() in Quizzes.java
+- 
 
  */
