@@ -28,7 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static quizretakes.utils.QuizXMLFile.separator;
+import static quizretakes.utils.Config.separator;
 
 public class ScheduleController {
     public TextField textFieldName;
@@ -61,8 +61,9 @@ public class ScheduleController {
     @FXML
     public void initialize() {
         initViews();
-        if (Main.pCourseID != null) {
-            readDataFiles(Main.pCourseID);
+        String courseID = Config.getInstance().getCourseID();
+        if (courseID != null) {
+            readDataFiles(courseID);
         }
     }
 
@@ -85,7 +86,7 @@ public class ScheduleController {
         });
 
         textError.setWrappingWidth(Main.getStage().getWidth()*0.9);
-        textCourseID.setText(Main.pCourseID);
+        textCourseID.setText(Config.getInstance().getCourseID());
     }
 
     /**
@@ -96,7 +97,7 @@ public class ScheduleController {
         CourseBean course;
         CourseReader cr = new CourseReader();
 
-        courseFileName = QuizXMLFile.getCourseFilename(courseID);
+        courseFileName = Config.getCourseFilename(courseID);
 
         try {
             course = cr.read(courseFileName);
@@ -106,8 +107,8 @@ public class ScheduleController {
             return;
         }
 
-        String quizzesFilename = QuizXMLFile.getQuizzesFilename(courseID);
-        String retakesFilename = QuizXMLFile.getRetakesFilename(courseID);
+        String quizzesFilename = Config.getQuizzesFilename(courseID);
+        String retakesFilename = Config.getRetakesFilename(courseID);
 
         Quizzes quizList    = new Quizzes();
         Retakes retakesList = new Retakes();
@@ -215,7 +216,7 @@ public class ScheduleController {
      */
     void submitData() {
 
-        String apptsFileName = QuizXMLFile.getApptsFilename(Main.pCourseID);
+        String apptsFileName = Config.getApptsFilename(Config.getInstance().getCourseID());
 
         // Get name and list of retake requests from parameters
         String studentName = textFieldName.getText();
@@ -280,7 +281,7 @@ public class ScheduleController {
     public void onClickButtonRefresh(ActionEvent actionEvent) {
         updateErrors();
         textSuccess.setVisible(false);
-        readDataFiles(Main.pCourseID);
+        readDataFiles(Config.getInstance().getCourseID());
     }
 
     public void onClickButtonAppointments(ActionEvent actionEvent) {
@@ -288,7 +289,7 @@ public class ScheduleController {
         File courseDir = new File(
                 String.join(
                         System.getProperty("user.dir"),
-                        QuizXMLFile.getApptsFilename(Main.pCourseID))
+                        Config.getApptsFilename(Config.getInstance().getCourseID()))
         );
 
         if (courseDir.exists()) {

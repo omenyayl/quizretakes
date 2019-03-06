@@ -53,10 +53,11 @@ public class AppointmentsController {
      * Reads the retake and appointment data
      */
     private void initData() {
+        String courseID = Config.getInstance().getCourseID();
         HashMap<Integer, RetakeBean> retakeBeanHashMap =
-                readDateTimeLocations(QuizXMLFile.getRetakesFilename(Main.pCourseID));
+                readDateTimeLocations(Config.getRetakesFilename(courseID));
         ArrayList<ApptBean> appts =
-                readAppointmentsData(QuizXMLFile.getApptsFilename(Main.pCourseID));
+                readAppointmentsData(Config.getApptsFilename(courseID));
         updateListData(retakeBeanHashMap, appts);
     }
 

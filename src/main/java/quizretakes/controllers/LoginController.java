@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import quizretakes.Layouts;
 import quizretakes.Main;
-import quizretakes.utils.QuizXMLFile;
+import quizretakes.utils.Config;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,12 +24,12 @@ public class LoginController {
         File courseDir = new File(
                 String.join(
                         System.getProperty("user.dir"),
-                        QuizXMLFile.getCourseFilename(courseID))
+                        Config.getCourseFilename(courseID))
         );
 
         if (!courseID.isEmpty() && courseDir.exists()) {
             try {
-                Main.pCourseID = courseID;
+                Config.getInstance().setCourseID(courseID);
                 Main.switchScene(Layouts.SCHEDULE, getClass(), 800, 600);
             } catch (IOException e) {
                 e.printStackTrace();

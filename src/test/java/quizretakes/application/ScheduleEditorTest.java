@@ -12,11 +12,7 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.xml.sax.SAXException;
 import quizretakes.Layouts;
-import quizretakes.Main;
-import quizretakes.utils.QuizBean;
-import quizretakes.utils.QuizReader;
-import quizretakes.utils.QuizWriter;
-import quizretakes.utils.Quizzes;
+import quizretakes.utils.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -30,7 +26,7 @@ public class ScheduleEditorTest extends ApplicationTest {
 
     @Before
     public void setUp() {
-        Main.pCourseID = "swe437";
+
     }
 
     @After

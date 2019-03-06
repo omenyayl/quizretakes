@@ -11,7 +11,6 @@ import java.io.IOException;
 public class Main extends Application {
 
     private static Stage pStage;
-    public static String pCourseID = "swe437";
 
     @Override
     public void start(Stage primaryStage) throws Exception{

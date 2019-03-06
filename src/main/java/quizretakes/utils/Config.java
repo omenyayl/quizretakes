@@ -1,6 +1,30 @@
 package quizretakes.utils;
 
-public class QuizXMLFile {
+public class Config {
+
+    private static Config instance;
+
+    private String courseID;
+
+    private Config(){
+
+    }
+
+    synchronized public static Config getInstance() {
+        if (instance == null) {
+            instance = new Config();
+        }
+        return instance;
+    }
+
+    public void setCourseID (String courseID) {
+        this.courseID = courseID;
+    }
+
+    public String getCourseID() {
+        return courseID;
+    }
+
     public static final String separator = ",";
     public static final String courseBase   = "course";
     private static final String quizzesBase = "quiz-orig";
