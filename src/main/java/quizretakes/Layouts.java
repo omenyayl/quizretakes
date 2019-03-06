@@ -20,5 +20,12 @@ public enum Layouts {
         public String toString() {
             return "/layouts/schedule.fxml";
         }
+    },
+
+    SCHEDULE_EDITOR {
+        @Override
+        public String toString() {
+            return "/layouts/schedule_editor.fxml";
+        }
     }
 }

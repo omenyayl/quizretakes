@@ -1,4 +1,4 @@
-package quizretakes;
+package quizretakes.application;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,10 +8,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import org.junit.*;
-import org.testfx.api.FxAssert;
-import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
+import quizretakes.Layouts;
+import quizretakes.Main;
 
 import static org.junit.Assert.assertEquals;
 
@@ -57,5 +57,6 @@ public class AppointmentsTest extends ApplicationTest {
         assertEquals(listBefore, listAfter);
 
     }
+
 
 }

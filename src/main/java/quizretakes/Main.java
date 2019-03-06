@@ -124,6 +124,27 @@ if there is an empty quizzes list
 
 Refactoring:
 - Added a method isEmpty() in Quizzes.java
-- 
+- The write() method now checks the list with isEmpty() and
+  throws the corresponding exception if it is empty.
+
+
+GUI Testing Preparation:
+- Added Maven support for simply library management.
+- Added TestFX as a dependency. TestFX is a method of simulating the
+  user experience.
+
+
+ScheduleEditorTest:
+This test class is responsible for simulating the UX in the schedule editor page, and testing visible output.
+The TestFX environment is setup in ScheduleEditorTest.start()
+
+ScheduleEditorTest.setupTest:
+If the TestFX environment starts without errors, this test will pass
+
+Refactoring:
+- Added a SCHEDULE_EDITOR enum in Layouts.java that returns the path of a non-existent fxml.
+- Added new FXML layout schedule_editor.fxml
+
+
 
  */
