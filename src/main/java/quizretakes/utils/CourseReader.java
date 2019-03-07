@@ -30,26 +30,21 @@ public class CourseReader {
             throws IOException, ParserConfigurationException, SAXException {
         CourseBean course = null;
 
-        System.out.println("In course Reader, fileName: " + filename);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(new File(filename));
 
-        System.out.println("In course Reader");
         // Get all the nodes
         NodeList nodeList = document.getDocumentElement().getChildNodes();
         for (int i = 0; i < nodeList.getLength(); i++) {
-            System.out.println("course Reader, i=" + i);
             // XML structure is simple--6 elements
             // Not validating the data values
             Node node = nodeList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
-                System.out.println("course Reader, in if");
                 Element elem = (Element) node;
 
                 // quiz IDs should be unique
                 String courseID = elem.getElementsByTagName("courseID").item(0).getChildNodes().item(0).getNodeValue();
-                System.out.println("course Reader, courseID: " + courseID);
                 String courseTitle = elem.getElementsByTagName("courseTitle").item(0).getChildNodes().item(0).getNodeValue();
                 String retakeDuration = elem.getElementsByTagName("retakeDuration").item(0).getChildNodes().item(0).getNodeValue();
                 String dataLocation = elem.getElementsByTagName("dataLocation").item(0).getChildNodes().item(0).getNodeValue();

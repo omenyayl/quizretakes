@@ -59,4 +59,7 @@ public class Quizzes implements Iterable<QuizBean>
       return this.quizzes.size() == 0;
    }
 
+   public ArrayList<QuizBean> getItems() {
+      return this.quizzes;
+   }
 }

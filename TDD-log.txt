@@ -1,0 +1,147 @@
+User story:
+As an instructor, I want to define scheduled quizzes and retakes using the UI so that I don't have to
+hand-edit the XML files by hand.
+
+Acceptance Test:
+
+- Simulate the user adding a quiz and verify that it is added in the lists of quizzes in the XML.
+- Simulate the user adding a retake and verify that it is added in the lists of retakes in the XML.
+- Simulate the user deleting a retake and verify that the lists of retakes in the XML no longer has that retake.
+- Simulate the user deleting a quiz and verify that the lists of quizzes in the XML no longer has that retake.
+- Verify that the program displays an error when the user attempts to add a quiz or a retake with empty information.
+- Verify that an error is shown when the user attempts to create a quiz with an existing ID.
+- Verify that an error is shown when the user attempts to create a retake with an existing ID.
+
+
+Tests:
+
+RetakesWriterTest.testWriteSingleRetake:
+Created a test that instantiates a RetakesWriter with a Retakes list,
+and calls its write function with the path to the output test xml file.
+Then, it uses RetakesReader to read that written XML file and tests
+whether the retakes strings are the same.
+- Created a stub constructor that takes in a Retakes list
+- Created a stub write method that takes in a file path
+- Added a getter for the timeOffered field in RetakeBean.java
+- Implemented RetakesWriter.write(), and test now passes
+- Refactored RetakesWriter and delegated the work of constructing 
+  the DOM document to a new method. 
+- Refactored RetakesWriterTest to delegate the comparison of a retakes
+  object with the read XML file into a new method assertSameRetakesFromWrittenXML()
+
+RetakesWriterTest.testWriteMultipleRetakes:
+Instantiates a list of multiple retakes, and tests whether 
+retakes.toString is equal to the parsed written retakes XML
+- Added a for loop in constructDocumentFromRetakes() to go through the retakes list
+  and append the retakes into the XML document
+
+RetakesWriterTest.testWriteEmptyRetakes:
+Tests whether an IllegalArgumentException is thrown when attempting
+to write the XML with an empty retakes list.                    
+- Added an isEmpty() method in Retakes.java
+- Now the RetakesWriter does not have a field for the retakes. 
+  Instead, the Retakes object is now a parameter in RetakesWrite.write()
+- Refactored all of the test calls to write()
+- Now checking if the retakes list is empty. If so, throw an IllegalArgumentException.
+- the path to the output XML file is now a field in RetakesWriter
+
+
+QuizWriterTest.createQuizXMLTest:
+Tests whether an XML file is created that can be parsed successfully by
+QuizReader                                                             
+- Created constructDocumentFromQuizzes that creates a DOM document
+- Added a getTime() method in QuizBean in order to get the time of the quiz
+- implemented write()
+
+QuizWriterTest.createMultipleQuizXMLTest:
+Tests whether the QuizWriter can write multiple quizzes into an
+XML file     
+- Refactored tests by creating a new method dedicated to 
+  comparing the Quizzes object to a parsed written XML file
+- Refactored tests by creating a new method dedicated to 
+  instantiating the QuizWriter and calling its write function.
+- Added a tearDown() method that deletes the written test XML file
+  if it exists.
+- Added a for loop in constructDocumentFromQuizzes that goes through
+  the quizzes and adds a new node for each quiz.
+
+QuizWriterTest.createEmptyQuizXMLFile:
+Tests whether the QuizWriter throws an IllegalArgumentException
+if there is an empty quizzes list                              
+- Added a method isEmpty() in Quizzes.java
+- The write() method now checks the list with isEmpty() and
+  throws the corresponding exception if it is empty.
+
+
+GUI Testing Preparation:
+- Added Maven support for simply library management.
+- Added TestFX as a dependency. TestFX is a method of simulating the
+  user experience.
+
+ScheduleEditorTest:
+This test class is responsible for simulating the UX in the schedule editor page, and testing visible output.
+The TestFX environment is setup in ScheduleEditorTest.start()
+
+ScheduleEditorTest.setupTest:
+If the TestFX environment starts without errors, this test will pass
+- Added a SCHEDULE_EDITOR enum in Layouts.java that returns the path of a non-existent fxml.
+- Added new FXML layout schedule_editor.fxml
+
+ScheduleEditorTest.showListOfQuizzes:
+Checks that the user is able to see the list of active quizzes.
+- Wrote mock XML data in @BeforeClass. The mock data is deleted in @AfterClass.
+- Added a getter method in Quizzes.java to get the arraylist with QuizBeans.
+- Added an ID to the listview containing quizzes
+- Created and implemented ScheduleEditorController.readDataFiles to read the quizzes from a mock quizzes XML
+  and update the listview for quizzes
+
+ScheduleEditorTest.showListOfRetakes:
+Checks that the user is able to see the list of active retakes
+- Had similar refactors as in the showListOfQuizzes test.
+
+
+ScheduleEditorTest.quizzesHaveSelections:
+Sees if there exists an instantiatied object for the quiz selection
+- Added a HashMap that will store the selections and instantiated it
+
+ScheduleEditorTest.retakesHaveSelections:
+Sees if there exists an instantiatied object for the retake selection
+- Added a Hashmap that will store the selection and instantiated it
+
+ScheduleEditorTest.testQuizDelete:
+Tests if the program can delete a selected quiz
+- Added a checkbox cell factory for the listviews
+- Added an onClickListener for each checkbox that will append a new quiz into the hashmap for quiz selections
+- Implemented the quiz delete selected button that simply deletes all instances of QuizBeans in the listview that are in the selections
+
+ScheduleEditorTest.testRetakeDelete:
+Tests if the program can delete a selected retake
+- Very similar refactors as in testQuizDelete
+
+ScheduleEditorTest.testQuizAdd:
+Can add a quiz
+- Program now looks at the new quiz form content, creates a new quizbean, and simply adds it to the quiz listview 
+
+ScheduleEditorTest.testRetakeAdd:
+Can add a retake
+- Program now looks at the new retake form content, creates a new retakebean, and adds it to the retake listview 
+
+ScheduleEditorTest.testQuizAddEmpty:
+Checks if the program displays an error and skips adding a quiz with missing information
+- Added error checking before adding a new quiz item that checks it there is any missing information
+- An error message is shown under this condition.
+
+ScheduleEditorTest.testRetakeAddEmpty:
+Verifies that an error is shown when attempting to add an empty retake
+- Added error checking before adding a new retake item that checks to see if any retake form information is empty
+- The program now displays a corresponding error message.
+
+ScheduleEditorTest.testQuizSameID:
+Checks if the program displays an error and skips adding a quiz with the same ID.
+- Program now checks if there exists a quizbean with the same id already in the list
+- Program displays a corresponding error message
+
+ScheduleEditorTest.testRetakeAddSameID:
+Checks if the program displays an error and skips adding a retake with the same ID.
+- Program now checks if there exists a retakebean with the same id already in the list
+- Program displays a corresponding error message

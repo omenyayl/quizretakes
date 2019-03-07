@@ -15,110 +15,107 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0"
-      xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="quizretakes.controllers.ScheduleController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quizretakes.controllers.ScheduleController">
    <ToolBar prefHeight="40.0">
-      <Button mnemonicParsing="false" onAction="#onClickButtonBack" text="Cancel"/>
-      <Button mnemonicParsing="false" onAction="#onClickButtonRefresh" text="Reload"/>
-      <Button mnemonicParsing="false" onAction="#onClickButtonAppointments" text="Appointments"/>
+      <Button mnemonicParsing="false" onAction="#onClickButtonBack" text="Cancel" />
+      <Button mnemonicParsing="false" onAction="#onClickButtonRefresh" text="Reload" />
+      <Button mnemonicParsing="false" onAction="#onClickButtonAppointments" text="Appointments" />
+      <Button mnemonicParsing="false" onAction="#onClickButtonEditSchedule" text="Edit Schedule" />
    </ToolBar>
    <VBox alignment="TOP_CENTER">
       <VBox.margin>
-         <Insets top="20.0"/>
+         <Insets top="20.0" />
       </VBox.margin>
       <Text fx:id="textCourseID" strokeType="OUTSIDE" strokeWidth="0.0" text="Class" textAlignment="CENTER">
          <VBox.margin>
-            <Insets/>
+            <Insets />
          </VBox.margin>
          <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
          </font>
       </Text>
-      <Text fx:id="textSuccess" fill="#0f6f01" strokeType="OUTSIDE" strokeWidth="0.0"
-            text="Successfully created appointment" visible="false">
+      <Text fx:id="textSuccess" fill="#0f6f01" strokeType="OUTSIDE" strokeWidth="0.0" text="Successfully created appointment" visible="false">
          <font>
-            <Font size="18.0"/>
+            <Font size="18.0" />
          </font>
       </Text>
       <VBox>
          <VBox.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
          <Text fx:id="textDates" strokeType="OUTSIDE" strokeWidth="0.0" text="Dates">
             <VBox.margin>
-               <Insets bottom="5.0" top="5.0"/>
+               <Insets bottom="5.0" top="5.0" />
             </VBox.margin>
             <font>
-               <Font size="18.0"/>
+               <Font size="18.0" />
             </font>
          </Text>
          <HBox>
             <VBox.margin>
-               <Insets bottom="5.0" top="5.0"/>
+               <Insets bottom="5.0" top="5.0" />
             </VBox.margin>
-            <TextField fx:id="textFieldName" promptText="Full Name"/>
+            <TextField fx:id="textFieldName" promptText="Full Name" />
          </HBox>
          <GridPane>
             <columnConstraints>
-               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <padding>
-               <Insets bottom="5.0" top="5.0"/>
+               <Insets bottom="5.0" top="5.0" />
             </padding>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Request Retakes">
                   <font>
-                     <Font size="18.0"/>
+                     <Font size="18.0" />
                   </font>
                </Text>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All Retake Sessions">
                   <font>
-                     <Font size="18.0"/>
+                     <Font size="18.0" />
                   </font>
                </Text>
             </HBox>
          </GridPane>
          <GridPane fx:id="gridPaneRetakes" prefHeight="308.0" VBox.vgrow="ALWAYS">
             <columnConstraints>
-               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <padding>
-               <Insets bottom="5.0" top="5.0"/>
+               <Insets bottom="5.0" top="5.0" />
             </padding>
             <ScrollPane fx:id="scrollPaneRequestRetakes">
                <Group>
-                  <ListView fx:id="listViewRequestRetakes" prefHeight="200.0"/>
+                  <ListView fx:id="listViewRequestRetakes" prefHeight="200.0" />
                </Group>
             </ScrollPane>
             <ScrollPane fx:id="scrollPaneAllOpportunities" GridPane.columnIndex="1">
                <Group>
-                  <ListView fx:id="listViewAllOpportunities" prefHeight="400.0"/>
+                  <ListView fx:id="listViewAllOpportunities" prefHeight="400.0" />
                </Group>
             </ScrollPane>
          </GridPane>
       </VBox>
       <VBox alignment="TOP_CENTER">
          <VBox.margin>
-            <Insets bottom="5.0" top="5.0"/>
+            <Insets bottom="5.0" top="5.0" />
          </VBox.margin>
-         <Text fx:id="textError" fill="#a80000" strokeType="OUTSIDE" strokeWidth="0.0" text="Error"
-               visible="false">
+         <Text fx:id="textError" fill="#a80000" strokeType="OUTSIDE" strokeWidth="0.0" text="Error" visible="false">
             <VBox.margin>
-               <Insets bottom="5.0"/>
+               <Insets bottom="5.0" />
             </VBox.margin>
          </Text>
-         <Button mnemonicParsing="false" onAction="#onClickButtonSubmitRequest" text="Submit Request"/>
+         <Button mnemonicParsing="false" onAction="#onClickButtonSubmitRequest" text="Submit Request" />
       </VBox>
    </VBox>
 </VBox>

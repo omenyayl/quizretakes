@@ -1,14 +1,11 @@
 package quizretakes.controllers;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import org.xml.sax.SAXException;
@@ -45,12 +42,12 @@ public class ScheduleController {
     private String courseFileName;
     private int daysAvailable = 14;
 
-    private static final String ERROR_NO_COURSE_FILE = "Error 101: Cannot find the course file";
-    private static final String ERROR_NO_NAME = "Error 102: Name is blank";
-    private static final String ERROR_NO_QUIZZES_SELECTED = "Error 103: No quizzes selected";
-    private static final String ERROR_FAILED_SAVE = "Error 104: Could not save appointment";
-    private static final String ERROR_NO_APPTS_FILE = "Error 105: Did not find the appointments file";
-    private static final String ERROR_NO_DATA_FILES = "Error 108: Cannot find retakes and/or quiz XML files";
+    private static final String ERROR_NO_COURSE_FILE = "Cannot find the course file";
+    private static final String ERROR_NO_NAME = "Name is blank";
+    private static final String ERROR_NO_QUIZZES_SELECTED = "No quizzes selected";
+    private static final String ERROR_FAILED_SAVE = "Could not save appointment";
+    private static final String ERROR_NO_APPTS_FILE = "Did not find the appointments file";
+    private static final String ERROR_NO_DATA_FILES = "Cannot find retakes and/or quiz XML files";
 
 
     private HashSet<QuizListItem> selectedQuizzes;
@@ -93,7 +90,7 @@ public class ScheduleController {
      * Reads data files with respect to the course ID
      * @param courseID the ID of the course, e.g. swe437
      */
-    void readDataFiles(String courseID) {
+    private void readDataFiles(String courseID) {
         CourseBean course;
         CourseReader cr = new CourseReader();
 
@@ -103,7 +100,7 @@ public class ScheduleController {
             course = cr.read(courseFileName);
         } catch (IOException | ParserConfigurationException | SAXException e) {
             String message = String.format("%s for %s", ERROR_NO_COURSE_FILE, courseID);
-            updateErrors(message);
+            Common.updateText(textError, message);
             return;
         }
 
@@ -121,10 +118,9 @@ public class ScheduleController {
             updateData(quizList, retakesList, course);
         } catch (IOException | ParserConfigurationException | SAXException e) {
             e.printStackTrace();
-            updateErrors(ERROR_NO_DATA_FILES);
+            Common.updateText(textError, ERROR_NO_DATA_FILES);
         }
 
-        selectedQuizzes = new HashSet<>();
 
     }
 
@@ -193,19 +189,10 @@ public class ScheduleController {
                 FXCollections.observableArrayList(quizzes)
         );
 
-        listViewRequestRetakes.setCellFactory(
-                CheckBoxListCell.forListView(param -> {
-                    BooleanProperty observable = new SimpleBooleanProperty();
-                    observable.addListener((obs, wasSelected, isNowSelected) -> {
-                        if (isNowSelected) {
-                            selectedQuizzes.add(param);
-                        } else {
-                            selectedQuizzes.remove(param);
-                        }
-                    });
-                    return observable;
-                })
-        );
+        selectedQuizzes = new HashSet<>();
+
+        CheckboxListener<QuizListItem> listener = new CheckboxListener<>();
+        listener.setCheckBoxListener(selectedQuizzes, listViewRequestRetakes);
 
     }
 
@@ -247,7 +234,7 @@ public class ScheduleController {
 
             textSuccess.setVisible(true);
         } catch (IOException e) {
-            updateErrors(ERROR_FAILED_SAVE);
+            Common.updateText(textError, ERROR_FAILED_SAVE);
         }
 
     }
@@ -269,17 +256,17 @@ public class ScheduleController {
             errorText += ERROR_NO_QUIZZES_SELECTED + "\n";
         }
         if (errorText.isEmpty()) {
-            updateErrors();
+            Common.updateText(textError);
             submitData();
         }
         else {
-            updateErrors(errorText);
+            Common.updateText(textError, errorText);
             textSuccess.setVisible(false);
         }
     }
 
     public void onClickButtonRefresh(ActionEvent actionEvent) {
-        updateErrors();
+        Common.updateText(textError);
         textSuccess.setVisible(false);
         readDataFiles(Config.getInstance().getCourseID());
     }
@@ -300,18 +287,16 @@ public class ScheduleController {
             }
         }
         else {
-            updateErrors(ERROR_NO_APPTS_FILE);
+            Common.updateText(textError, ERROR_NO_APPTS_FILE);
             textSuccess.setVisible(false);
         }
     }
 
-    private void updateErrors(String...errors) {
-        if (errors.length != 0) {
-            textError.setVisible(true);
-            textError.setText(String.join("\n", errors));
-        }
-        else {
-            textError.setVisible(false);
+    public void onClickButtonEditSchedule(ActionEvent actionEvent) {
+        try {
+            Main.switchScene(Layouts.SCHEDULE_EDITOR, getClass(), 800, 600);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

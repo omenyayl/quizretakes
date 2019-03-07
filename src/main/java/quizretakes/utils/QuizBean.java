@@ -87,7 +87,15 @@ public class QuizBean implements Comparable<QuizBean>
       return timeGiven.toString();
    }
 
-/*
+   @Override
+   public boolean equals(Object quizBean2) {
+      if (quizBean2 instanceof QuizBean) {
+         return ((QuizBean) quizBean2).compareTo(this) == 0;
+      }
+      return false;
+   }
+
+   /*
    public String getQuizId() {
       return quizId;
    }

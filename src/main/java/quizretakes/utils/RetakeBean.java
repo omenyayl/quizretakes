@@ -47,6 +47,14 @@ public class RetakeBean implements Comparable<RetakeBean>
       return this.retakeID - quizR.retakeID;
    }
 
+   @Override
+   public boolean equals(Object obj) {
+      if (obj instanceof RetakeBean) {
+         return ((RetakeBean) obj).compareTo(this) == 0;
+      }
+      return false;
+   }
+
    // *** Getters *** //
    public LocalDate getDate()
    {

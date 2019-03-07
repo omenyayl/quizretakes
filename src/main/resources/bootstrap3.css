@@ -165,18 +165,18 @@ VBox > .split-menu-button.last > .arrow-button {
 	-fx-border-color: #cccccc;
 	-fx-text-fill: #333333;
 }
-	/*just for the special split menu button*/
+/*just for the special split menu button*/
 .split-menu-button > .label {
 	-fx-border-width: 1 0 1 1;
 }
-	/*for date picker arrow button*/
+/*for date picker arrow button*/
 .date-picker > .arrow-button {
 	-fx-border-radius: 0 4 4 0;
 }
 .combo-box > .arrow-button, .choice-box > .arrow-button {
 	-fx-border-width: 0;
 }
-	/*hover state*/
+/*hover state*/
 .color-picker:hover,
 .date-picker:hover > .arrow-button,
 .combo-box:hover,.choice-box:hover,
@@ -187,7 +187,7 @@ VBox > .split-menu-button.last > .arrow-button {
 	-fx-background-color: #e6e6e6;
 	-fx-border-color: #acacac;
 }
-	/*pressed selected*/
+/*pressed selected*/
 .color-picker:pressed,.color-picker:selected,
 .number-button:pressed,.number-button:selected,
 .date-picker:pressed > .arrow-button,
@@ -204,7 +204,7 @@ VBox > .split-menu-button.last > .arrow-button {
 	-fx-effect: innershadow(gaussian, #adadad, 10, 0, 0, 3);
 }
 
-	/*primary*/
+/*primary*/
 
 .button.primary,.split-menu-button.primary,.toggle-button.primary,.menu-button.primary,
 .split-menu-button.primary > .label, .split-menu-button.primary > .arrow-button {
@@ -358,6 +358,13 @@ VBox > .split-menu-button.last > .arrow-button {
 .menu-item:focused .arrow {
 	-fx-background-color: #333333;
 }
+
+/*.check-menu-item:checked:hover > .left-container > .check,*/
+/*.check-menu-item:checked:focused > .left-container > .check,*/
+/*.radio-menu-item:checked:hover > .left-container > .radio,*/
+/*.radio-menu-item:checked:focused > .left-container > .radio {*/
+	/*-fx-background-color: #333333;*/
+/*}*/
 
 .context-menu {
 	-fx-border-radius: 4;
@@ -820,36 +827,36 @@ VBox > .split-menu-button.last > .arrow-button {
 	-fx-background-color: #E0E0E0;
 }
 
-/*******************************************************************************
- *                                                                             *
- * CheckBox                                                                    *
- *                                                                             *
- ******************************************************************************/
-.check-box > .box {
-	-fx-background-radius: 3;
-	/*-fx-padding: 0.166667em 0.166667em 0.25em 0.25em; !* 2 2 3 3 *!*/
-	-fx-padding:0;
-	-fx-border-color: #56c0e0;
-	-fx-border-radius: 3;
-	-fx-background-color: white;
-}
-.check-box > .box > .mark {
-	-fx-background-color: null;
-	-fx-padding: 0.416667em 0.416667em 0.5em 0.5em; /* 5 5 6 6 */
-	-fx-shape: "M927.936 272.992l-68.288-68.288c-12.608-12.576-32.96-12.576-45.536 0l-409.44 409.44-194.752-196.16c-12.576-12.576-32.928-12.576-45.536 0l-68.288 68.288c-12.576 12.608-12.576 32.96 0 45.536l285.568 287.488c12.576 12.576 32.96 12.576 45.536 0l500.736-500.768c12.576-12.544 12.576-32.96 0-45.536z";
-	-fx-background-insets: -3 -3 1 0;
-}
-.check-box {
-	-fx-label-padding: 0.2em 0.0em 0.3em 0.416667em; /* 0 0 0 5 */
-	-fx-text-fill: -fx-text-background-color;
-	-fx-padding: 0 0 2 0;
-}
-.check-box:indeterminate > .box {
-	-fx-padding: 0;
-}
-.check-box:selected > .box > .mark {
-	-fx-background-color: linear-gradient(to bottom, #56c0e0, #40b8dc);
-}
+/*!********************************************************************************/
+ /**                                                                             **/
+ /** CheckBox                                                                    **/
+ /**                                                                             **/
+ /*******************************************************************************!*/
+/*.check-box > .box {*/
+	/*-fx-background-radius: 3;*/
+	/*!*-fx-padding: 0.166667em 0.166667em 0.25em 0.25em; !* 2 2 3 3 *!*!*/
+	/*-fx-padding:0;*/
+	/*-fx-border-color: #56c0e0;*/
+	/*-fx-border-radius: 3;*/
+	/*-fx-background-color: white;*/
+/*}*/
+/*.check-box > .box > .mark {*/
+	/*-fx-background-color: null;*/
+	/*-fx-padding: 0.416667em 0.416667em 0.5em 0.5em; !* 5 5 6 6 *!*/
+	/*-fx-shape: "M927.936 272.992l-68.288-68.288c-12.608-12.576-32.96-12.576-45.536 0l-409.44 409.44-194.752-196.16c-12.576-12.576-32.928-12.576-45.536 0l-68.288 68.288c-12.576 12.608-12.576 32.96 0 45.536l285.568 287.488c12.576 12.576 32.96 12.576 45.536 0l500.736-500.768c12.576-12.544 12.576-32.96 0-45.536z";*/
+	/*-fx-background-insets: -3 -3 1 0;*/
+/*}*/
+/*.check-box {*/
+	/*-fx-label-padding: 0.2em 0.0em 0.3em 0.416667em; !* 0 0 0 5 *!*/
+	/*-fx-text-fill: -fx-text-background-color;*/
+	/*-fx-padding: 0 0 2 0;*/
+/*}*/
+/*.check-box:indeterminate > .box {*/
+	/*-fx-padding: 0;*/
+/*}*/
+/*.check-box:selected > .box > .mark {*/
+	/*-fx-background-color: linear-gradient(to bottom, #56c0e0, #40b8dc);*/
+/*}*/
 
 /*******************************************************************************
  *                                                                             *

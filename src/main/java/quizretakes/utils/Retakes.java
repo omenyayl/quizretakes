@@ -58,4 +58,7 @@ public class Retakes implements Iterable<RetakeBean>
       return retakes.size() == 0;
    }
 
+   public ArrayList<RetakeBean> getItems() {
+      return this.retakes;
+   }
 }
