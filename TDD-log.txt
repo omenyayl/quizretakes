@@ -145,3 +145,13 @@ ScheduleEditorTest.testRetakeAddSameID:
 Checks if the program displays an error and skips adding a retake with the same ID.
 - Program now checks if there exists a retakebean with the same id already in the list
 - Program displays a corresponding error message
+
+ScheduleEditorTest.testSave:
+Checks if both quizzes and retakes are saved to an XML file
+- Implemented save button onClickListener
+- The program simply saves already read quizzes and retakes
+
+ScheduleEditorTest.testSaveEdited:
+Checks if the program saved quizzes and retakes after editing them
+- Now the quizzes and retakes are extracted from their listviews, and written with QuizWriter and RetakeWriter
+- Empty quizzes and retakes are no longer written.

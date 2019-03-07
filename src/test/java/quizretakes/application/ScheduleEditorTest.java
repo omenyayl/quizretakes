@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import org.junit.*;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
+import org.xml.sax.SAXException;
 import quizretakes.Layouts;
 import quizretakes.controllers.ScheduleEditorController;
 import quizretakes.utils.*;
@@ -17,6 +18,7 @@ import quizretakes.utils.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -27,42 +29,6 @@ public class ScheduleEditorTest extends ApplicationTest {
     private ScheduleEditorController controllerInstance;
 
     private static final String courseID = "testCourse";
-
-    @BeforeClass
-    public static void beforeClassFunction() {
-        Config.getInstance().setCourseID(courseID);
-
-        // Create mock data
-        QuizWriter quizWriter = new QuizWriter(Config.getQuizzesFilename(courseID));
-        try {
-            quizWriter.write(getQuizzes());
-        } catch (TransformerException | ParserConfigurationException e) {
-            e.printStackTrace();
-            fail("Could not write quizzes");
-        }
-
-        RetakesWriter retakesWriter =
-                new RetakesWriter(Config.getRetakesFilename(courseID));
-        try {
-            retakesWriter.write(getRetakes());
-        } catch (ParserConfigurationException | TransformerException e) {
-            e.printStackTrace();
-            fail("Could not write retakes");
-        }
-    }
-
-    @AfterClass
-    public static void afterClassFunction() {
-        File quizzesFile = new File(Config.getQuizzesFilename(courseID));
-        if (quizzesFile.exists()) {
-            quizzesFile.deleteOnExit();
-        }
-
-        File retakesFile = new File(Config.getRetakesFilename(courseID));
-        if (retakesFile.exists()) {
-            retakesFile.deleteOnExit();
-        }
-    }
 
     private static Quizzes getQuizzes() {
         Quizzes quizzes = new Quizzes();
@@ -102,7 +68,25 @@ public class ScheduleEditorTest extends ApplicationTest {
 
     @Before
     public void setUp() {
+        Config.getInstance().setCourseID(courseID);
 
+        // Create mock data
+        QuizWriter quizWriter = new QuizWriter(Config.getQuizzesFilename(courseID));
+        try {
+            quizWriter.write(getQuizzes());
+        } catch (TransformerException | ParserConfigurationException e) {
+            e.printStackTrace();
+            fail("Could not write quizzes");
+        }
+
+        RetakesWriter retakesWriter =
+                new RetakesWriter(Config.getRetakesFilename(courseID));
+        try {
+            retakesWriter.write(getRetakes());
+        } catch (ParserConfigurationException | TransformerException e) {
+            e.printStackTrace();
+            fail("Could not write retakes");
+        }
     }
 
     @After
@@ -110,7 +94,15 @@ public class ScheduleEditorTest extends ApplicationTest {
         FxToolkit.hideStage();
         release(new KeyCode[]{});
         release(new MouseButton[]{});
+        File quizzesFile = new File(Config.getQuizzesFilename(courseID));
+        if (quizzesFile.exists()) {
+            quizzesFile.deleteOnExit();
+        }
 
+        File retakesFile = new File(Config.getRetakesFilename(courseID));
+        if (retakesFile.exists()) {
+            retakesFile.deleteOnExit();
+        }
 
     }
 
@@ -379,6 +371,76 @@ public class ScheduleEditorTest extends ApplicationTest {
 
         assertTrue(controllerInstance.feedbackText.isVisible());
         assertEquals(retakeBeans.getItems().toString(), controllerInstance.listViewRetakes.getItems().toString());
+
+    }
+
+    /**
+     * Checks if both quizzes and retakes are saved to an XML file
+     */
+    @Test
+    public void testSave() {
+        File quizzesFile = new File(Config.getQuizzesFilename(courseID));
+        File retakesFile = new File(Config.getRetakesFilename(courseID));
+
+        if (quizzesFile.exists()) {
+            assertTrue("quizzes file should had been deleted before the save test",
+                    quizzesFile.delete());
+        }
+        if (retakesFile.exists()) {
+            assertTrue("retakes file should had been deleted before the save test",
+                    retakesFile.delete());
+        }
+
+        clickOn(controllerInstance.buttonSave);
+
+        assertTrue(quizzesFile.exists());
+        assertTrue(retakesFile.exists());
+    }
+
+    /**
+     * Checks if the program saved quizzes and retakes after editing them
+     */
+    @Test
+    public void testSaveEdited() throws ParserConfigurationException, SAXException, IOException {
+        Quizzes quizzes = getQuizzes();
+        quizzes.addQuiz(new QuizBean(
+                13, 5, 2, 4, 20
+        ));
+
+        Retakes retakeBeans = getRetakes();
+        retakeBeans.addRetake(new RetakeBean(
+                15, "ENGR 3476", 5, 6,  9, 35
+        ));
+
+        doubleClickOn(controllerInstance.textFieldQuizID);
+        write("13");
+        controllerInstance.selectedQuizDate = LocalDate.of(2019, 5, 2);
+        doubleClickOn(controllerInstance.textFieldQuizHour);
+        write("4");
+        doubleClickOn(controllerInstance.textFieldQuizMinute);
+        write("20");
+        clickOn(controllerInstance.buttonAddQuiz);
+
+        doubleClickOn(controllerInstance.textFieldRetakeID);
+        write("15");
+        doubleClickOn(controllerInstance.textFieldRetakeLocation);
+        write("ENGR 3476");
+        doubleClickOn(controllerInstance.textFieldRetakeHour);
+        write("9");
+        doubleClickOn(controllerInstance.textFieldRetakeMinute);
+        write("35");
+        controllerInstance.selectedRetakeDate = LocalDate.of(2019, 5, 6);
+        clickOn(controllerInstance.buttonAddRetake);
+
+        clickOn(controllerInstance.buttonSave);
+
+        Retakes readRetakes = new RetakesReader().read(
+                Config.getRetakesFilename(courseID));
+        Quizzes readQuizzes = new QuizReader().read(
+                Config.getQuizzesFilename(courseID));
+
+        assertEquals(retakeBeans.toString(), readRetakes.toString());
+        assertEquals(quizzes.toString(), readQuizzes.toString());
 
     }
 
