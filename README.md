@@ -17,9 +17,16 @@ NOTE: This application requires Java 8!
 
 Before you run the application, make sure that your XML data files are located on the same directory as the JAR executable.
 
-## Development
+## Development with IntelliJ
 You can easily clone this repo and start developing immediately with IntelliJ IDEA. 
 
 To run the application, right click on the Main class located in src/main/java/quizretakes, and click run. 
 
 To run tests, right click on src/test/java, and click Run 'All Tests'
+
+## Development with Maven
+To test and run the program, type
+
+``
+mvn jfx:run
+``
