@@ -5,7 +5,7 @@ This is my project for a Software Testing and Maintenance class at George Mason 
 Navigate to the releases page and download the latest release.
 
 ## Usage
-The JAR file is found inside the Quizretakes.zip file in the [releases](https://github.com/omenyayl/quizretakes/releases) page. You can also click [here](https://github.com/omenyayl/quizretakes/releases/download/1.2.1/quizretake.zip) to download the latest release.
+The JAR file is found inside the Quizretakes.zip file in the [releases](https://github.com/omenyayl/quizretakes/releases) page. You can also click [here](https://github.com/omenyayl/quizretakes/releases/download/1.2.2/quizretakes.zip) to download the latest release.
 
 Extract quizretakes.zip, then simply double click on the JAR executable to run the application. If that does not work, or if you are on Linux, try entering the following in the terminal:
 
