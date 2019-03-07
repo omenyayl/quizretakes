@@ -42,7 +42,7 @@ public class ScheduleController {
     private String courseFileName;
     private int daysAvailable = 14;
 
-    private static final String ERROR_NO_COURSE_FILE = "Cannot find the course file, inferring course from login window.";
+    private static final String ERROR_NO_COURSE_FILE = "Cannot find the course file, inferring course from login window";
     private static final String ERROR_NO_NAME = "Name is blank";
     private static final String ERROR_NO_QUIZZES_SELECTED = "No quizzes selected";
     private static final String ERROR_FAILED_SAVE = "Could not save appointment";
@@ -110,7 +110,7 @@ public class ScheduleController {
         try {
             course = cr.read(courseFileName);
         } catch (IOException | ParserConfigurationException | SAXException e) {
-            String message = String.format("%s for %s", ERROR_NO_COURSE_FILE, courseID);
+            String message = String.format("%s: %s", ERROR_NO_COURSE_FILE, courseID);
             Common.updateText(textError, message);
             course = createCourse(courseID);
         }
