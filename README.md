@@ -30,3 +30,5 @@ To test and run the program, type
 ``
 mvn jfx:run
 ``
+
+NOTE: When testing, do not move your mouse.
