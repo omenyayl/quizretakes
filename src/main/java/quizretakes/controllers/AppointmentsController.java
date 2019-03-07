@@ -140,7 +140,7 @@ public class AppointmentsController {
     }
 
     public void onClickButtonBack(ActionEvent actionEvent) throws IOException {
-        Main.switchScene(Layouts.SCHEDULE, getClass(), 800, 600);
+        Main.switchScene(Layouts.SCHEDULE, getClass());
     }
 
     private void updateErrors(String...errors) {

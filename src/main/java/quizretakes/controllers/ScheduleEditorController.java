@@ -143,7 +143,7 @@ public class ScheduleEditorController {
 
     public void onClickButtonBack() {
         try {
-            Main.switchScene(Layouts.SCHEDULE, getClass(), 800, 600);
+            Main.switchScene(Layouts.SCHEDULE, getClass());
         } catch (IOException e) {
             e.printStackTrace();
         }

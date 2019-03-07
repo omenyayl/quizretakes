@@ -241,7 +241,7 @@ public class ScheduleController {
 
     public void onClickButtonBack(ActionEvent actionEvent) {
         try {
-            Main.switchScene(Layouts.LOGIN, getClass(), 300, 300);
+            Main.switchScene(Layouts.LOGIN, getClass());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -281,7 +281,7 @@ public class ScheduleController {
 
         if (courseDir.exists()) {
             try {
-                Main.switchScene(Layouts.APPOINTMENTS, getClass(), 800, 600);
+                Main.switchScene(Layouts.APPOINTMENTS, getClass());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -294,7 +294,7 @@ public class ScheduleController {
 
     public void onClickButtonEditSchedule(ActionEvent actionEvent) {
         try {
-            Main.switchScene(Layouts.SCHEDULE_EDITOR, getClass(), 800, 600);
+            Main.switchScene(Layouts.SCHEDULE_EDITOR, getClass());
         } catch (IOException e) {
             e.printStackTrace();
         }
