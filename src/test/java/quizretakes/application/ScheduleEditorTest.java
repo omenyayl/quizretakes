@@ -30,6 +30,11 @@ public class ScheduleEditorTest extends ApplicationTest {
 
     private static final String courseID = "testCourse";
 
+    @BeforeClass
+    public static void beforeClass() {
+        writeMockXMLData();
+    }
+
     private static Quizzes getQuizzes() {
         Quizzes quizzes = new Quizzes();
         quizzes.addQuiz(new QuizBean(
@@ -66,8 +71,7 @@ public class ScheduleEditorTest extends ApplicationTest {
         return retakes;
     }
 
-    @Before
-    public void setUp() {
+    private static void writeMockXMLData() {
         Config.getInstance().setCourseID(courseID);
 
         // Create mock data
@@ -87,6 +91,11 @@ public class ScheduleEditorTest extends ApplicationTest {
             e.printStackTrace();
             fail("Could not write retakes");
         }
+    }
+
+    @Before
+    public void setUp() {
+        writeMockXMLData();
     }
 
     @After
