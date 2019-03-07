@@ -246,12 +246,9 @@ public class ScheduleEditorTest extends ApplicationTest {
      */
     @Test
     public void testQuizAdd() {
-        clickOn(controllerInstance.textFieldQuizID);
-        write("123");
-        clickOn(controllerInstance.textFieldQuizHour);
-        write("10");
-        clickOn(controllerInstance.textFieldQuizMinute);
-        write("30");
+        controllerInstance.textFieldQuizID.setText("123");
+        controllerInstance.textFieldQuizHour.setText("10");
+        controllerInstance.textFieldQuizMinute.setText("30");
         controllerInstance.selectedQuizDate = LocalDate.of(2019, 3, 5);
         clickOn(controllerInstance.buttonAddQuiz);
         Quizzes expectedQuizzes = getQuizzes();
@@ -267,21 +264,15 @@ public class ScheduleEditorTest extends ApplicationTest {
      */
     @Test
     public void testQuizAdd2() {
-        doubleClickOn(controllerInstance.textFieldQuizID);
-        write("123");
-        doubleClickOn(controllerInstance.textFieldQuizHour);
-        write("10");
-        doubleClickOn(controllerInstance.textFieldQuizMinute);
-        write("30");
+        controllerInstance.textFieldQuizID.setText("123");
+        controllerInstance.textFieldQuizHour.setText("10");
+        controllerInstance.textFieldQuizMinute.setText("30");
         controllerInstance.selectedQuizDate = LocalDate.of(2019, 3, 5);
         clickOn(controllerInstance.buttonAddQuiz);
 
-        doubleClickOn(controllerInstance.textFieldQuizID);
-        write("1234");
-        doubleClickOn(controllerInstance.textFieldQuizHour);
-        write("2");
-        doubleClickOn(controllerInstance.textFieldQuizMinute);
-        write("15");
+        controllerInstance.textFieldQuizID.setText("1234");
+        controllerInstance.textFieldQuizHour.setText("2");
+        controllerInstance.textFieldQuizMinute.setText("15");
         controllerInstance.selectedQuizDate = LocalDate.of(2019, 4, 5);
         clickOn(controllerInstance.buttonAddQuiz);
 
@@ -304,15 +295,11 @@ public class ScheduleEditorTest extends ApplicationTest {
         Retakes retakeBeans = getRetakes();
         retakeBeans.addRetake(new RetakeBean(10, "ENGR 1241", 2, 3, 4, 15));
 
-        doubleClickOn(controllerInstance.textFieldRetakeID);
-        write("10");
-        doubleClickOn(controllerInstance.textFieldRetakeLocation);
-        write("ENGR 1241");
+        controllerInstance.textFieldRetakeID.setText("10");
+        controllerInstance.textFieldRetakeLocation.setText("ENGR 1241");
         controllerInstance.selectedRetakeDate = LocalDate.of(2019, 2, 3);
-        doubleClickOn(controllerInstance.textFieldRetakeHour);
-        write("4");
-        doubleClickOn(controllerInstance.textFieldRetakeMinute);
-        write("15");
+        controllerInstance.textFieldRetakeHour.setText("4");
+        controllerInstance.textFieldRetakeMinute.setText("15");
         clickOn(controllerInstance.buttonAddRetake);
 
         assertEquals(retakeBeans.getItems().toString(), controllerInstance.listViewRetakes.getItems().toString());
@@ -336,12 +323,9 @@ public class ScheduleEditorTest extends ApplicationTest {
     public void testQuizSameID () {
         Quizzes quizzes = getQuizzes();
 
-        doubleClickOn(controllerInstance.textFieldQuizID);
-        write("1");
-        doubleClickOn(controllerInstance.textFieldQuizHour);
-        write("12");
-        doubleClickOn(controllerInstance.textFieldQuizMinute);
-        write("30");
+        controllerInstance.textFieldQuizID.setText("1");
+        controllerInstance.textFieldQuizHour.setText("12");
+        controllerInstance.textFieldQuizMinute.setText("30");
         controllerInstance.selectedQuizDate = LocalDate.of(2019, 3, 5);
         clickOn(controllerInstance.buttonAddQuiz);
 
@@ -367,15 +351,11 @@ public class ScheduleEditorTest extends ApplicationTest {
     public void testRetakeAddSameID () {
         Retakes retakeBeans = getRetakes();
 
-        doubleClickOn(controllerInstance.textFieldRetakeID);
-        write("1");
-        doubleClickOn(controllerInstance.textFieldRetakeLocation);
-        write("ENGR 1241");
+        controllerInstance.textFieldRetakeID.setText("1");
+        controllerInstance.textFieldRetakeLocation.setText("ENGR 1241");
         controllerInstance.selectedRetakeDate = LocalDate.of(2019, 2, 3);
-        doubleClickOn(controllerInstance.textFieldRetakeHour);
-        write("4");
-        doubleClickOn(controllerInstance.textFieldRetakeMinute);
-        write("15");
+        controllerInstance.textFieldRetakeHour.setText("4");
+        controllerInstance.textFieldRetakeMinute.setText("15");
         clickOn(controllerInstance.buttonAddRetake);
 
         assertTrue(controllerInstance.feedbackText.isVisible());
@@ -420,25 +400,19 @@ public class ScheduleEditorTest extends ApplicationTest {
         retakeBeans.addRetake(new RetakeBean(
                 15, "ENGR 3476", 5, 6,  9, 35
         ));
-
-        doubleClickOn(controllerInstance.textFieldQuizID);
-        write("13");
+        controllerInstance.textFieldQuizID.setText("13");
         controllerInstance.selectedQuizDate = LocalDate.of(2019, 5, 2);
-        doubleClickOn(controllerInstance.textFieldQuizHour);
-        write("4");
-        doubleClickOn(controllerInstance.textFieldQuizMinute);
-        write("20");
+        controllerInstance.textFieldQuizHour.setText("4");
+        controllerInstance.textFieldQuizMinute.setText("20");
+
+        controllerInstance.textFieldRetakeID.setText("15");
+        controllerInstance.textFieldRetakeLocation.setText("ENGR 3476");
+        controllerInstance.textFieldRetakeHour.setText("9");
+        controllerInstance.textFieldRetakeMinute.setText("35");
+        controllerInstance.selectedRetakeDate = LocalDate.of(2019, 5, 6);
+
         clickOn(controllerInstance.buttonAddQuiz);
 
-        doubleClickOn(controllerInstance.textFieldRetakeID);
-        write("15");
-        doubleClickOn(controllerInstance.textFieldRetakeLocation);
-        write("ENGR 3476");
-        doubleClickOn(controllerInstance.textFieldRetakeHour);
-        write("9");
-        doubleClickOn(controllerInstance.textFieldRetakeMinute);
-        write("35");
-        controllerInstance.selectedRetakeDate = LocalDate.of(2019, 5, 6);
         clickOn(controllerInstance.buttonAddRetake);
 
         clickOn(controllerInstance.buttonSave);
