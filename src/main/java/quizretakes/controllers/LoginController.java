@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import quizretakes.Layouts;
 import quizretakes.Main;
+import quizretakes.utils.Common;
 import quizretakes.utils.Config;
 
 import java.io.File;
@@ -28,18 +29,17 @@ public class LoginController {
         );
 
         if (!courseID.isEmpty() && courseDir.exists()) {
-            try {
-                Config.getInstance().setCourseID(courseID);
-                Main.switchScene(Layouts.SCHEDULE, getClass(), 800, 600);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Config.getInstance().setCourseID(courseID);
         }
         else {
-            textError.setText(String.format("%s '%s'",
-                    ERROR_CODE_INVALID_COURSEID, courseDir.getName()));
-            textError.setWrappingWidth(200);
-            textError.setVisible(true);
+            Config.getInstance().setCourseID(courseID);
+        }
+
+        try {
+            Config.getInstance().setCourseID(courseID);
+            Main.switchScene(Layouts.SCHEDULE, getClass(), 800, 600);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
