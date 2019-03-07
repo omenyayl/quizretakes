@@ -42,12 +42,12 @@ public class ScheduleController {
     private String courseFileName;
     private int daysAvailable = 14;
 
-    private static final String ERROR_NO_COURSE_FILE = "Cannot find the course file";
+    private static final String ERROR_NO_COURSE_FILE = "Cannot find the course file, inferring course from login window.";
     private static final String ERROR_NO_NAME = "Name is blank";
     private static final String ERROR_NO_QUIZZES_SELECTED = "No quizzes selected";
     private static final String ERROR_FAILED_SAVE = "Could not save appointment";
     private static final String ERROR_NO_APPTS_FILE = "Did not find the appointments file";
-    private static final String ERROR_NO_DATA_FILES = "Cannot find retakes and/or quiz XML files";
+    private static final String ERROR_NO_DATA_FILES = "Cannot find retakes and/or quiz XML files for the selected course.";
 
 
     private HashSet<QuizListItem> selectedQuizzes;
@@ -86,6 +86,17 @@ public class ScheduleController {
         textCourseID.setText(Config.getInstance().getCourseID());
     }
 
+    private CourseBean createCourse(String courseID) {
+        return new CourseBean(
+                courseID,
+                courseID,
+                "14",
+                LocalDate.of(2019, 1, 21),
+                LocalDate.of(2019, 1, 25),
+                "."
+        );
+    }
+
     /**
      * Reads data files with respect to the course ID
      * @param courseID the ID of the course, e.g. swe437
@@ -101,7 +112,7 @@ public class ScheduleController {
         } catch (IOException | ParserConfigurationException | SAXException e) {
             String message = String.format("%s for %s", ERROR_NO_COURSE_FILE, courseID);
             Common.updateText(textError, message);
-            return;
+            course = createCourse(courseID);
         }
 
         String quizzesFilename = Config.getQuizzesFilename(courseID);
@@ -117,7 +128,6 @@ public class ScheduleController {
             retakesList = rr.read (retakesFilename);
             updateData(quizList, retakesList, course);
         } catch (IOException | ParserConfigurationException | SAXException e) {
-            e.printStackTrace();
             Common.updateText(textError, ERROR_NO_DATA_FILES);
         }
 

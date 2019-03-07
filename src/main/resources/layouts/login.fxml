@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 
 <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="quizretakes.controllers.LoginController">
    <VBox alignment="CENTER">
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your Course ID"/>
